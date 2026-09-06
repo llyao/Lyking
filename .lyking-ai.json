@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "workflowVersion": "1.0",
+  "areas": [
+    { "name": "Art", "root": "Art", "context": "Art/CONTEXT.md", "keywords": ["美术", "资源", "模型", "贴图", "材质", "动画", "音频", "特效"] },
+    { "name": "Client", "root": "Client", "context": "Client/CONTEXT.md", "keywords": ["客户端", "Unity", "界面", "交互", "场景", "运行时"] },
+    { "name": "Server", "root": "Server", "context": "Server/CONTEXT.md", "keywords": ["服务端", "部署", "服务", "存储", "数据库"] },
+    { "name": "Share", "root": "Share", "context": "Share/CONTEXT.md", "keywords": ["共享", "协议", "契约", "消息", "序列化"] },
+    { "name": "Tool", "root": "Tool", "context": "Tool/CONTEXT.md", "keywords": ["工具", "构建", "打包", "导入", "转换", "检查"] }
+  ],
+  "riskRules": [
+    { "id": "shared-contract", "description": "共享契约变更", "pathPrefixes": ["Share/"], "pathSegments": [] },
+    { "id": "save-data", "description": "存档或持久化变更", "pathPrefixes": [], "pathSegments": ["Save", "Persistence"] },
+    { "id": "network-protocol", "description": "网络协议变更", "pathPrefixes": [], "pathSegments": ["Protocol", "Network", "Rpc"] },
+    { "id": "security", "description": "安全、认证或权限变更", "pathPrefixes": [], "pathSegments": ["Security", "Auth", "Permission"] }
+  ],
+  "profiles": { "direct": [], "standard": ["change.md", "evidence.md"], "controlled": ["change.md", "evidence.md", "design.md", "plan.md", "tasks.md", "review.md"] },
+  "changes": { "active": "docs/changes/active", "archive": "docs/changes/archive" },
+  "adapters": { "claudeSkills": ".claude/skills", "codexAgents": ".codex/agents", "claudeAgents": ".claude/agents", "geminiAgents": ".gemini/agents", "manifest": ".lyking-ai-adapters.json" },
+  "excludedPaths": [".git/", ".worktrees/", "Library/", "Temp/", "Logs/", "obj/", "bin/"]
+}

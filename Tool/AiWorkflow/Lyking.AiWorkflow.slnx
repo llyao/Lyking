@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Lyking.AiWorkflow.Tests.csproj" />
+  </Folder>
+  <Project Path="Lyking.AiWorkflow.csproj" />
+</Solution>

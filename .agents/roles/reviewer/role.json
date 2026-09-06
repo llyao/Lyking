@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "name": "reviewer",
+  "description": "只读检查正确性、回归风险和验证缺口。",
+  "mode": "read-only"
+}

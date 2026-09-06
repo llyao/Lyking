@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {
+      "path": ".claude/agents/explorer.md",
+      "sourceDigest": "d1369f735505be4b4d217fa1c8c4da50a77c7941bfed6e0cd8ba17867f1757ee"
+    },
+    {
+      "path": ".claude/agents/implementer.md",
+      "sourceDigest": "eb389fd64ba2686e56574a81a53ebf9689b48a23d7645615a59e926008f08831"
+    },
+    {
+      "path": ".claude/agents/reviewer.md",
+      "sourceDigest": "4ba57bf902484ffb0fade0bec7d04e887bf816241f49e4b8f9f264e3a8067b7e"
+    },
+    {
+      "path": ".claude/skills/lyking-debug/SKILL.md",
+      "sourceDigest": "cd90a4a31ec891f370e75e923f4badffc1eeb380fe035bf2af3ddfe75ca201d0"
+    },
+    {
+      "path": ".claude/skills/lyking-deliver/SKILL.md",
+      "sourceDigest": "31b8659a2ab36e04526163eaa32e0fc72578cc311973119dc6070f7c5880d41a"
+    },
+    {
+      "path": ".claude/skills/lyking-design/SKILL.md",
+      "sourceDigest": "f08ccd5a5d33e0a66d58a846cb7c4bdce81c9d53abfafa46f5035d7a54378ef6"
+    },
+    {
+      "path": ".claude/skills/lyking-implement/SKILL.md",
+      "sourceDigest": "f1961bc66deb93702153e4a81cdc402bbba4a9bf29a8a2f18912098ab08a9f44"
+    },
+    {
+      "path": ".claude/skills/lyking-review/SKILL.md",
+      "sourceDigest": "8a1a185dddfea6f9efc20244271c91959e528ff1bb12a306e6d01c776375c9f8"
+    },
+    {
+      "path": ".claude/skills/lyking-verify/SKILL.md",
+      "sourceDigest": "71a425cca70c21352fa4732fd2af60ddd87354a1b7920f54edb78691df4e2349"
+    },
+    {
+      "path": ".codex/agents/explorer.toml",
+      "sourceDigest": "d1369f735505be4b4d217fa1c8c4da50a77c7941bfed6e0cd8ba17867f1757ee"
+    },
+    {
+      "path": ".codex/agents/implementer.toml",
+      "sourceDigest": "eb389fd64ba2686e56574a81a53ebf9689b48a23d7645615a59e926008f08831"
+    },
+    {
+      "path": ".codex/agents/reviewer.toml",
+      "sourceDigest": "4ba57bf902484ffb0fade0bec7d04e887bf816241f49e4b8f9f264e3a8067b7e"
+    },
+    {
+      "path": ".gemini/agents/explorer.md",
+      "sourceDigest": "d1369f735505be4b4d217fa1c8c4da50a77c7941bfed6e0cd8ba17867f1757ee"
+    },
+    {
+      "path": ".gemini/agents/implementer.md",
+      "sourceDigest": "eb389fd64ba2686e56574a81a53ebf9689b48a23d7645615a59e926008f08831"
+    },
+    {
+      "path": ".gemini/agents/reviewer.md",
+      "sourceDigest": "4ba57bf902484ffb0fade0bec7d04e887bf816241f49e4b8f9f264e3a8067b7e"
+    }
+  ]
+}
