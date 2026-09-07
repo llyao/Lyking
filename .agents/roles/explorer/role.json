@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "name": "explorer",
+  "description": "只读定位代码、文档、依赖和影响范围。",
+  "mode": "read-only"
+}

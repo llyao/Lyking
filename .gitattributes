@@ -1,0 +1,5 @@
+.agents/** text eol=lf
+.claude/** text eol=lf
+.codex/** text eol=lf
+.gemini/** text eol=lf
+.lyking-ai-adapters.json text eol=lf

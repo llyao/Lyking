@@ -1,1 +1,4 @@
 .worktrees/
+[Bb]in/
+[Oo]bj/
+TestResults/
