@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Lyking.GameFramework.PluginAbstractions</RootNamespace>
+    <AssemblyName>Lyking.GameFramework.PluginAbstractions</AssemblyName>
+    <Description>模块管理中间件合同：Descriptor、Registrar、Plan、Validator、Context、Middleware。禁止引用平台与第三方容器。</Description>
+  </PropertyGroup>
+
+</Project>

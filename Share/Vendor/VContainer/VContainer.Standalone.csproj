@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- 与官方 VContainer.Standalone.csproj 同源的纯 .NET 编译范围：
+       Runtime/**/*.cs 排除 Unity/ 子目录。来源与边界见 PROVENANCE.md。 -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>disable</Nullable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <RootNamespace>VContainer</RootNamespace>
+    <AssemblyName>VContainer</AssemblyName>
+    <Version>1.16.0-local</Version>
+    <Description>VContainer (upstream master 4fc1ed47dff1314e73fbf2a85ab88f53601414f6), vendored for Lyking headless builds.</Description>
+    <NoPackageOnPublish>true</NoPackageOnPublish>
+  </PropertyGroup>
+
+</Project>

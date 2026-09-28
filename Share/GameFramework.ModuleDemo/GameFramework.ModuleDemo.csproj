@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Lyking.GameFramework.ModuleDemo</RootNamespace>
+    <AssemblyName>Lyking.GameFramework.ModuleDemo</AssemblyName>
+    <Description>模块管理中间件全流程演示：Plan → Validate → Apply → Start → Command/Event → Scope → Drain → Stop。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameFramework.PluginHost\GameFramework.PluginHost.csproj" />
+    <ProjectReference Include="..\GameFramework.PluginHost.VContainer\GameFramework.PluginHost.VContainer.csproj" />
+  </ItemGroup>
+
+</Project>

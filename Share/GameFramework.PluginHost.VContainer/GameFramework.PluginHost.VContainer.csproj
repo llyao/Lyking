@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Lyking.GameFramework.PluginHost.VContainer</RootNamespace>
+    <AssemblyName>Lyking.GameFramework.PluginHost.VContainer</AssemblyName>
+    <Description>VContainer 物化层：只应用已校验计划，只使用最小核心 API 子集，不驱动生命周期。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameFramework.PluginAbstractions\GameFramework.PluginAbstractions.csproj" />
+    <ProjectReference Include="..\Vendor\VContainer\VContainer.Standalone.csproj" />
+  </ItemGroup>
+
+</Project>

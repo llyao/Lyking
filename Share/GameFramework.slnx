@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Vendor/VContainer/VContainer.Standalone.csproj" />
+  <Project Path="GameFramework.PluginAbstractions/GameFramework.PluginAbstractions.csproj" />
+  <Project Path="GameFramework.PluginHost/GameFramework.PluginHost.csproj" />
+  <Project Path="GameFramework.PluginHost.VContainer/GameFramework.PluginHost.VContainer.csproj" />
+  <Project Path="GameFramework.PluginHost.Tests/GameFramework.PluginHost.Tests.csproj" />
+  <Project Path="GameFramework.ModuleDemo/GameFramework.ModuleDemo.csproj" />
+</Solution>
