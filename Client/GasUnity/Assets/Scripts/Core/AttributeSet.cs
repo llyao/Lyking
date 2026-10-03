@@ -15,6 +15,12 @@ namespace Lyking.GameplayAbilities.Core
             return _values.TryGetValue(name, out double value) ? value : 0;
         }
 
+        public bool Contains(string name)
+        {
+            ValidateName(name);
+            return _values.ContainsKey(name);
+        }
+
         public void Set(string name, double value)
         {
             ValidateName(name);
