@@ -24,6 +24,18 @@ namespace Lyking.GameplayAbilities.Core
 
         public event Action<GameplayEvent>? EventPublished;
 
+        public double GetCooldownRemaining(string abilityId)
+        {
+            if (string.IsNullOrWhiteSpace(abilityId))
+            {
+                throw new ArgumentException("能力 ID 不能为空。", nameof(abilityId));
+            }
+
+            return _cooldownEnds.TryGetValue(abilityId, out double cooldownEnd)
+                ? Math.Max(0, cooldownEnd - _clock.Now)
+                : 0;
+        }
+
         public void GrantAbility(GameplayAbility ability)
         {
             if (ability is null)
@@ -66,7 +78,15 @@ namespace Lyking.GameplayAbilities.Core
                 return Reject(abilityId, AbilityFailureReason.InsufficientResource);
             }
 
-            EventPublished?.Invoke(new GameplayEvent(GameplayEventType.AbilityActivated, ability.Id));
+            double damage = Attributes.Contains("AttackPower")
+                ? Attributes.Get("AttackPower")
+                : ability.Damage;
+            if (damage < 0 || double.IsNaN(damage) || double.IsInfinity(damage))
+            {
+                return Reject(abilityId, AbilityFailureReason.InvalidTarget);
+            }
+
+            Publish(new GameplayEvent(GameplayEventType.AbilityActivated, ability.Id));
             _suppressAttributeEvents = true;
             try
             {
@@ -77,19 +97,19 @@ namespace Lyking.GameplayAbilities.Core
                 _suppressAttributeEvents = false;
             }
 
-            EventPublished?.Invoke(new GameplayEvent(GameplayEventType.CostCommitted, ability.Id, attributeName: ability.CostAttribute));
+            Publish(new GameplayEvent(GameplayEventType.CostCommitted, ability.Id, attributeName: ability.CostAttribute));
 
             var effect = new GameplayEffectSpec(
-                new Dictionary<string, double> { [ability.DamageAttribute] = -ability.Damage });
+                new Dictionary<string, double> { [ability.DamageAttribute] = -damage });
             foreach (KeyValuePair<string, double> modifier in effect.Modifiers)
             {
-                target.Attributes.ApplyDelta(modifier.Key, modifier.Value);
+                target.ApplyExternalDelta(modifier.Key, modifier.Value);
             }
 
-            EventPublished?.Invoke(new GameplayEvent(GameplayEventType.EffectApplied, ability.Id, attributeName: ability.DamageAttribute));
-            EventPublished?.Invoke(new GameplayEvent(GameplayEventType.AttributeChanged, ability.Id, attributeName: ability.DamageAttribute));
+            Publish(new GameplayEvent(GameplayEventType.EffectApplied, ability.Id, attributeName: ability.DamageAttribute));
+            target.Publish(new GameplayEvent(GameplayEventType.AttributeChanged, ability.Id, attributeName: ability.DamageAttribute));
             _cooldownEnds[ability.Id] = _clock.Now + ability.CooldownSeconds;
-            EventPublished?.Invoke(new GameplayEvent(GameplayEventType.CooldownStarted, ability.Id));
+            Publish(new GameplayEvent(GameplayEventType.CooldownStarted, ability.Id));
             return new AbilityActivationResult(true, AbilityFailureReason.None);
         }
 
@@ -106,20 +126,49 @@ namespace Lyking.GameplayAbilities.Core
 
         private bool HasRequiredTags(GameplayTagContainer requiredTags)
         {
-            return requiredTags.Count == 0 || OwnedTags.HasAny(requiredTags);
+            return requiredTags.Count == 0 || OwnedTags.HasAll(requiredTags);
         }
 
         private AbilityActivationResult Reject(string abilityId, AbilityFailureReason reason)
         {
-            EventPublished?.Invoke(new GameplayEvent(GameplayEventType.AbilityRejected, abilityId, reason));
+            Publish(new GameplayEvent(GameplayEventType.AbilityRejected, abilityId, reason));
             return new AbilityActivationResult(false, reason);
+        }
+
+        private void ApplyExternalDelta(string attributeName, double delta)
+        {
+            _suppressAttributeEvents = true;
+            try
+            {
+                Attributes.ApplyDelta(attributeName, delta);
+            }
+            finally
+            {
+                _suppressAttributeEvents = false;
+            }
+        }
+
+        private void Publish(GameplayEvent gameplayEvent)
+        {
+            Delegate[] handlers = EventPublished?.GetInvocationList() ?? Array.Empty<Delegate>();
+            foreach (Action<GameplayEvent> handler in handlers)
+            {
+                try
+                {
+                    handler(gameplayEvent);
+                }
+                catch
+                {
+                    // 事件观察者不能改变能力提交结果。
+                }
+            }
         }
 
         private void OnAttributeChanged(string attributeName, double _, double __)
         {
             if (!_suppressAttributeEvents)
             {
-                EventPublished?.Invoke(new GameplayEvent(GameplayEventType.AttributeChanged, string.Empty, attributeName: attributeName));
+                Publish(new GameplayEvent(GameplayEventType.AttributeChanged, string.Empty, attributeName: attributeName));
             }
         }
     }

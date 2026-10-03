@@ -15,9 +15,20 @@ namespace Lyking.GameplayAbilities.Core
             return _values.TryGetValue(name, out double value) ? value : 0;
         }
 
+        public bool Contains(string name)
+        {
+            ValidateName(name);
+            return _values.ContainsKey(name);
+        }
+
         public void Set(string name, double value)
         {
             ValidateName(name);
+            if (double.IsNaN(value) || double.IsInfinity(value))
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), "属性值必须是有限数值。");
+            }
+
             double before = Get(name);
             _values[name] = value;
             if (before != value)

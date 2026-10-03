@@ -49,6 +49,19 @@ namespace Lyking.GameplayAbilities.Unity
             }
         }
 
+        private void OnDestroy()
+        {
+            if (player is not null)
+            {
+                player.AbilitySystem.EventPublished -= OnGameplayEvent;
+            }
+
+            if (trainingDummy is not null)
+            {
+                trainingDummy.AbilitySystem.EventPublished -= OnGameplayEvent;
+            }
+        }
+
         public GasActor PlayerActor => player ?? throw new InvalidOperationException("玩家尚未装配。");
 
         public GasActor TrainingDummyActor => trainingDummy ?? throw new InvalidOperationException("训练假人尚未装配。");

@@ -41,6 +41,7 @@ namespace Lyking.GameplayAbilities.Unity
             GUILayout.BeginArea(new Rect(20, 20, 420, 300), GUI.skin.box);
             GUILayout.Label("Lyking GAS 演示");
             GUILayout.Label($"玩家 Mana: {_player.Mana:0}    训练假人 Health: {_trainingDummy.Health:0}");
+            GUILayout.Label($"Fireball 冷却: {_player.GetCooldownRemaining("Fireball"):0.0}s");
             GUILayout.Label("Space：激活 Fireball");
             GUILayout.Label(_message);
             GUILayout.Label("事件：");

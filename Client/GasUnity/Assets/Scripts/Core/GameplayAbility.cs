@@ -44,9 +44,22 @@ namespace Lyking.GameplayAbilities.Core
                 throw new ArgumentException("能力 ID 不能为空。", nameof(id));
             }
 
-            if (cost < 0 || cooldownSeconds < 0 || damage < 0)
+            if (cost < 0 || cooldownSeconds < 0 || damage < 0
+                || double.IsNaN(cost) || double.IsInfinity(cost)
+                || double.IsNaN(cooldownSeconds) || double.IsInfinity(cooldownSeconds)
+                || double.IsNaN(damage) || double.IsInfinity(damage))
             {
                 throw new ArgumentOutOfRangeException("能力成本、冷却和伤害不能为负数。");
+            }
+
+            if (string.IsNullOrWhiteSpace(costAttribute))
+            {
+                throw new ArgumentException("成本属性名称不能为空。", nameof(costAttribute));
+            }
+
+            if (string.IsNullOrWhiteSpace(damageAttribute))
+            {
+                throw new ArgumentException("伤害属性名称不能为空。", nameof(damageAttribute));
             }
 
             Id = id;

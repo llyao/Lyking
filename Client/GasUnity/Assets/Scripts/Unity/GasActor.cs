@@ -17,6 +17,8 @@ namespace Lyking.GameplayAbilities.Unity
 
         public float Mana => (float)AbilitySystem.Attributes.Get("Mana");
 
+        public float GetCooldownRemaining(string abilityId) => (float)AbilitySystem.GetCooldownRemaining(abilityId);
+
         private void Awake()
         {
             _clock = new ManualGameplayClock();

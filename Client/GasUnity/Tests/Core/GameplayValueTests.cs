@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Lyking.GameplayAbilities.Core.Tests;
@@ -45,5 +47,17 @@ public sealed class GameplayValueTests
         Assert.Equal(1, callbackCount);
         clock.Advance(5);
         Assert.Equal(1, callbackCount);
+    }
+
+    [Fact]
+    public void 效果规格复制修改器并拒绝非有限值()
+    {
+        var source = new Dictionary<string, double> { ["Health"] = -25 };
+        var spec = new GameplayEffectSpec(source);
+        source["Health"] = -99;
+
+        Assert.Equal(-25, spec.Modifiers["Health"]);
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new GameplayEffectSpec(new Dictionary<string, double> { ["Health"] = double.NaN }));
     }
 }

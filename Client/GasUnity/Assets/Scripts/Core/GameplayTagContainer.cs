@@ -35,6 +35,16 @@ namespace Lyking.GameplayAbilities.Core
             return other._tags.Any(HasTag);
         }
 
+        public bool HasAll(GameplayTagContainer other)
+        {
+            if (other is null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+
+            return other._tags.All(HasTag);
+        }
+
         public GameplayTagContainer Clone()
         {
             var clone = new GameplayTagContainer();

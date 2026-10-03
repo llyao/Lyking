@@ -24,4 +24,37 @@ public sealed class AbilitySystemComponentTests
         Assert.False(second.Succeeded);
         Assert.Equal(80, caster.Attributes.Get("Mana"));
     }
+
+    [Fact]
+    public void 伤害使用施法者攻击力而不是能力静态伤害()
+    {
+        var caster = new AbilitySystemComponent(new ManualGameplayClock());
+        var target = new AbilitySystemComponent(new ManualGameplayClock());
+        caster.Attributes.Set("Mana", 100);
+        caster.Attributes.Set("AttackPower", 40);
+        target.Attributes.Set("Health", 100);
+        caster.GrantAbility(FireballAbility.Create(cost: 20, cooldown: 2, damage: 25));
+
+        Assert.True(caster.TryActivate("Fireball", target).Succeeded);
+        Assert.Equal(60, target.Attributes.Get("Health"));
+    }
+
+    [Fact]
+    public void 多个必需标签必须全部满足()
+    {
+        var caster = new AbilitySystemComponent(new ManualGameplayClock());
+        var target = new AbilitySystemComponent(new ManualGameplayClock());
+        var required = new GameplayTagContainer();
+        required.Add("State.Ready");
+        required.Add("Weapon.Sword");
+        caster.OwnedTags.Add("State.Ready");
+        caster.Attributes.Set("Mana", 100);
+        caster.GrantAbility(new GameplayAbility("Attack", 10, 1, 10, requiredTags: required));
+
+        AbilityActivationResult result = caster.TryActivate("Attack", target);
+
+        Assert.False(result.Succeeded);
+        Assert.Equal(AbilityFailureReason.MissingRequiredTags, result.Reason);
+        Assert.Equal(100, caster.Attributes.Get("Mana"));
+    }
 }
