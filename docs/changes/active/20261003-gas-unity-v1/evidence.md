@@ -12,6 +12,8 @@
 - `dotnet run --project Tool/AiWorkflow/Lyking.AiWorkflow.csproj -- validate --change docs/changes/active/20261003-gas-unity-v1`：退出码 0，`issues: []`、`isValid: true`。
 - `git diff --check`：退出码 0，无空白错误。
 - `rg "UnityEngine|UnityEditor" Client/GasUnity/Assets/Scripts/Core`：无匹配，核心源码保持 Unity 无关。
+- 二次审查静态计数：`Client/GasUnity/Assets` 下 21 个 `.cs/.asmdef` 文件中 15 个缺少同名 `.meta`；场景、脚本和测试目录也缺少目录元数据。该问题尚未修复。
+- 二次审查确认当前 12 个 .NET 测试没有覆盖 `AttributeSet.AttributeChanged` 外部订阅者抛异常、目标属性数值溢出、真实 `Space` 输入、序列化 `.asset` 定义加载等路径。
 
 ### 当前缺口
 
