@@ -169,6 +169,18 @@ namespace Lyking.GameplayAbilities.Core
             return new AbilityActivationResult(true, AbilityFailureReason.None);
         }
 
+        public double GetCooldownRemaining(string? abilityId)
+        {
+            if (string.IsNullOrWhiteSpace(abilityId)
+                || !_cooldownEnds.TryGetValue(abilityId, out double cooldownEnd))
+            {
+                return 0;
+            }
+
+            double remaining = cooldownEnd - _clock.Now;
+            return IsFinite(remaining) && remaining > 0 ? remaining : 0;
+        }
+
         public void AdvanceTime(double seconds)
         {
             if (_clock is ManualGameplayClock manualClock)

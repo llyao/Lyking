@@ -57,4 +57,25 @@ public sealed class AbilitySystemComponentTests
         Assert.Equal(AbilityFailureReason.MissingRequiredTags, result.Reason);
         Assert.Equal(100, caster.Attributes.Get("Mana"));
     }
+
+    [Fact]
+    public void 冷却查询返回剩余时间并在结束后归零()
+    {
+        var clock = new ManualGameplayClock();
+        var caster = new AbilitySystemComponent(clock);
+        var target = new AbilitySystemComponent(clock);
+        caster.Attributes.Set("Mana", 100);
+        target.Attributes.Set("Health", 100);
+        caster.GrantAbility(FireballAbility.Create(cost: 20, cooldown: 2, damage: 25));
+
+        Assert.True(caster.TryActivate("Fireball", target).Succeeded);
+        Assert.Equal(2, caster.GetCooldownRemaining("Fireball"));
+
+        caster.AdvanceTime(0.75);
+        Assert.Equal(1.25, caster.GetCooldownRemaining("Fireball"), precision: 10);
+
+        caster.AdvanceTime(1.25);
+        Assert.Equal(0, caster.GetCooldownRemaining("Fireball"));
+        Assert.Equal(0, caster.GetCooldownRemaining("Unknown"));
+    }
 }
