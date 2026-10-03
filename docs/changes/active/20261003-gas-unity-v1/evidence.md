@@ -7,7 +7,7 @@
 ### 已通过
 
 - `dotnet build Client/GasUnity/Core/Lyking.GameplayAbilities.Core.csproj --configuration Release --nologo`：退出码 0，0 个警告，0 个错误。
-- `dotnet test Client/GasUnity/Tests/Lyking.GameplayAbilities.Core.Tests.csproj --configuration Release --nologo`：退出码 0，11 个通过，0 个失败，0 个跳过。覆盖资源/冷却/伤害、必需标签全部匹配、无效配置原子性、事件顺序与观察者异常隔离。
+- `dotnet test Client/GasUnity/Tests/Lyking.GameplayAbilities.Core.Tests.csproj --configuration Release --nologo`：退出码 0，12 个通过，0 个失败，0 个跳过。覆盖资源/冷却/伤害、必需标签全部匹配、无效配置原子性、事件顺序与观察者异常隔离。
 - `dotnet run --project Tool/AiWorkflow/Lyking.AiWorkflow.csproj -- route --text "在 Client/GasUnity 中实现模仿 Unreal GAS 的 Unity 示例" --path Client/GasUnity --path docs/changes/active/20261003-gas-unity-v1`：退出码 0，主领域 `Client`，风险信号为空，文本和显式路径均指向 `Client`。
 
 ### 当前缺口
