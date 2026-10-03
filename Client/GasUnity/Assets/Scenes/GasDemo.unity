@@ -71,8 +71,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a4c63e8f3a04db7b02c410fbf7db001, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   initialHealth: 100
   initialMana: 100
   attackPower: 25
@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a4c63e8f3a04db7b02c410fbf7db001, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   initialHealth: 100
   initialMana: 100
   attackPower: 0
@@ -141,11 +141,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b5d74f904b14ec8c13d5210cfc8e112, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   player: {fileID: 200000002}
   trainingDummy: {fileID: 300000002}
-  fireballDefinition: {fileID: 0}
+  fireballDefinition: {fileID: 11400000, guid: 712a5f34e08eff3c90adfaac59fefc10, type: 2}
   panel: {fileID: 500000002}
 --- !u!1 &500000000
 GameObject:
@@ -177,8 +177,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c6e850a15c24fd9d24e6321d0d9f223, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!104 &600000000
 RenderSettings:
   m_ObjectHideFlags: 0

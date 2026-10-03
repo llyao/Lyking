@@ -43,10 +43,7 @@ namespace Lyking.GameplayAbilities.Unity
 
             player.Tick(Time.deltaTime);
             trainingDummy.Tick(Time.deltaTime);
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                TryCastFireball();
-            }
+            ProcessInput(Input.GetKeyDown(KeyCode.Space) ? KeyCode.Space : KeyCode.None);
         }
 
         private void OnDestroy()
@@ -66,11 +63,21 @@ namespace Lyking.GameplayAbilities.Unity
 
         public GasActor TrainingDummyActor => trainingDummy ?? throw new InvalidOperationException("训练假人尚未装配。");
 
+        /// <summary>
+        /// 处理一帧输入。输入读取与能力激活分开，便于测试和替换输入来源。
+        /// </summary>
+        public bool ProcessInput(KeyCode key)
+        {
+            return key == KeyCode.Space && TryCastFireball().Succeeded;
+        }
+
         public AbilityActivationResult TryCastFireball()
         {
+            double healthBefore = TrainingDummyActor.Health;
             AbilityActivationResult result = PlayerActor.AbilitySystem.TryActivate("Fireball", TrainingDummyActor.AbilitySystem);
+            double damageDealt = healthBefore - TrainingDummyActor.Health;
             panel?.SetMessage(result.Succeeded
-                ? "火球命中，训练假人受到 25 点伤害。"
+                ? $"火球命中，训练假人受到 {damageDealt:0.##} 点伤害。"
                 : $"施法失败：{result.Reason}");
             return result;
         }
