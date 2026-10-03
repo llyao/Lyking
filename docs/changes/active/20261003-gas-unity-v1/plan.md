@@ -1,4 +1,3 @@
 # 实施计划
 
-设计审阅通过后填写。计划至少包含：核心合同与规则、Unity 工程与场景、测试、文档和验证证据五个阶段。
-
+完整实施计划已保存到 [`docs/superpowers/plans/2026-10-03-gas-unity.md`](../../../superpowers/plans/2026-10-03-gas-unity.md)，按核心规则、ASC、Unity 工程、场景桥接和验证证据拆分为六个任务。
