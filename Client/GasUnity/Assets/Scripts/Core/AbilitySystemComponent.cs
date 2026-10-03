@@ -70,9 +70,22 @@ namespace Lyking.GameplayAbilities.Core
                 return Reject(abilityId, AbilityFailureReason.InsufficientResource);
             }
 
+            double configuredDamage = ability.Damage;
+            if (ability.DamageEffect is not null)
+            {
+                if (ability.DamageEffect.Modifiers.Count != 1
+                    || !ability.DamageEffect.Modifiers.TryGetValue(ability.DamageAttribute, out double effectDelta)
+                    || effectDelta > 0)
+                {
+                    return Reject(abilityId, AbilityFailureReason.InvalidTarget);
+                }
+
+                configuredDamage = -effectDelta;
+            }
+
             double damage = Attributes.Contains("AttackPower")
                 ? Attributes.Get("AttackPower")
-                : ability.Damage;
+                : configuredDamage;
             if (!IsFinite(damage) || damage < 0)
             {
                 return Reject(abilityId, AbilityFailureReason.InvalidTarget);

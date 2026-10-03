@@ -1,3 +1,4 @@
+using System;
 using Lyking.GameplayAbilities.Core;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Lyking.GameplayAbilities.Definitions
         [SerializeField] private float cooldownSeconds = 2;
         [SerializeField] private float damage = 25;
         [SerializeField] private string blockedTag = "State.Stunned";
+        [SerializeField] private GameplayEffectDefinition? damageEffect;
 
         public GameplayAbility ToRuntimeAbility()
         {
@@ -20,11 +22,37 @@ namespace Lyking.GameplayAbilities.Definitions
                 blockedTags.Add(blockedTag);
             }
 
+            GameplayEffectSpec? runtimeEffect = damageEffect is null
+                ? null
+                : damageEffect.ToRuntimeSpec();
+            string runtimeDamageAttribute = "Health";
+            double runtimeDamage = damage;
+            if (runtimeEffect is not null)
+            {
+                if (runtimeEffect.Modifiers.Count != 1)
+                {
+                    throw new InvalidOperationException("能力伤害效果必须且只能包含一个属性修饰器。");
+                }
+
+                foreach (var modifier in runtimeEffect.Modifiers)
+                {
+                    if (modifier.Value > 0)
+                    {
+                        throw new InvalidOperationException("能力伤害效果的属性增量不能为正数。");
+                    }
+
+                    runtimeDamageAttribute = modifier.Key;
+                    runtimeDamage = -modifier.Value;
+                }
+            }
+
             return new GameplayAbility(
                 abilityId,
                 manaCost,
                 cooldownSeconds,
-                damage,
+                runtimeDamage,
+                damageAttribute: runtimeDamageAttribute,
+                damageEffect: runtimeEffect,
                 blockedTags: blockedTags);
         }
     }

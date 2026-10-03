@@ -7,7 +7,7 @@
 ### 已通过
 
 - `dotnet build Client/GasUnity/Core/Lyking.GameplayAbilities.Core.csproj --configuration Release --nologo`：退出码 0，0 个警告，0 个错误。
-- `dotnet test Client/GasUnity/Tests/Lyking.GameplayAbilities.Core.Tests.csproj --configuration Release --nologo`：退出码 0，15 个通过，0 个失败，0 个跳过。覆盖资源/冷却查询、动态伤害、必需标签全部匹配、目标溢出、空能力 ID、观察者异常、不可变标签和效果规格。
+- `dotnet test Client/GasUnity/Tests/Lyking.GameplayAbilities.Core.Tests.csproj --configuration Release --nologo`：退出码 0，25 个通过，0 个失败，0 个跳过。覆盖资源/冷却查询、动态伤害、必需标签全部匹配、目标溢出、空能力 ID、观察者异常、不可变标签、效果规格数据流和时钟边界。
 - `dotnet run --project Tool/AiWorkflow/Lyking.AiWorkflow.csproj -- route --text "在 Client/GasUnity 中实现模仿 Unreal GAS 的 Unity 示例" --path Client/GasUnity --path docs/changes/active/20261003-gas-unity-v1`：退出码 0，主领域 `Client`，风险信号为空，文本和显式路径均指向 `Client`。
 - `dotnet run --project Tool/AiWorkflow/Lyking.AiWorkflow.csproj -- validate --change docs/changes/active/20261003-gas-unity-v1`：退出码 0，`issues: []`、`isValid: true`。
 - `git diff --check`：退出码 0，无空白错误。
@@ -15,7 +15,10 @@
 - 二次审查静态计数：`Client/GasUnity/Assets` 下源文件、程序集、场景和资产均已存在同名 `.meta`，目录元数据也已补齐。
 - 原子提交测试已覆盖 `AttributeSet.AttributeChanged` 外部订阅者异常和目标属性数值溢出；Unity EditMode/PlayMode 仍未在目标编辑器执行。
 - Unity 资产接入检查：`Assets/Definitions/FireballAbility.asset` 已创建并被 `GasDemo.unity` 引用；EditMode 测试增加了序列化资产加载。PlayMode 输入测试通过 `ProcessInput(KeyCode.Space)` 覆盖与 `Update` 相同的输入分发入口。
-- Unity 适配编译面审查发现 `GasActor`/`GasDemoPanel` 使用的 `GetCooldownRemaining` 原先缺失；已在核心组件补充只读查询并新增冷却剩余时间测试，修复后核心测试为 15/15。Unity 适配程序集仍未在目标编辑器实际编译。
+- Unity 适配编译面审查发现 `GasActor`/`GasDemoPanel` 使用的 `GetCooldownRemaining` 原先缺失；已在核心组件补充只读查询并新增冷却剩余时间测试，当前核心测试为 25/25。Unity 适配程序集仍未在目标编辑器实际编译。
+- 效果数据流检查：`FireballAbility.asset` 引用 `FireballDamageEffect.asset`，`GameplayAbilityDefinition.ToRuntimeAbility()` 生成带 `GameplayEffectSpec` 的运行时能力，核心测试覆盖效果默认增量与 `AttackPower` 覆盖。
+- 手动时钟边界检查：`Schedule` 和 `Advance` 拒绝负数、`NaN`、正负无穷，参数化测试覆盖三类非有限输入。
+- 手动时钟溢出检查：`Now + seconds` 与 `Now + delaySeconds` 的非有限结果会被拒绝，溢出测试确认时钟状态和定时器列表不发生变化。
 
 ### 当前缺口
 
@@ -32,11 +35,11 @@
 - 目标属性事件在效果事件之后发布，重复的施法者属性事件已移除；事件观察者异常不会中断已提交状态。
 - 演示面板显示 Fireball 剩余冷却，Bootstrap 在销毁时退订事件。
 
-### 冷却查询修复后的本轮复跑
+### 本轮修复后的复跑
 
 - `dotnet build Client/GasUnity/Core/Lyking.GameplayAbilities.Core.csproj --configuration Release --nologo`：退出码 0，0 个警告，0 个错误。
-- `dotnet test Client/GasUnity/Tests/Lyking.GameplayAbilities.Core.Tests.csproj --configuration Release --nologo`：退出码 0，15 个通过，0 个失败，0 个跳过。
-- `dotnet run --project Tool/AiWorkflow/Lyking.AiWorkflow.csproj -- route --text "在 Client/GasUnity 中继续修复并审查模仿 Unreal GAS 的 Unity 示例" --path Client/GasUnity --path docs/changes/active/20261003-gas-unity-v1`：退出码 0，主领域 `Client`，风险信号为空。
+- `dotnet test Client/GasUnity/Tests/Lyking.GameplayAbilities.Core.Tests.csproj --configuration Release --nologo`：退出码 0，25 个通过，0 个失败，0 个跳过。
+- `dotnet run --project Tool/AiWorkflow/Lyking.AiWorkflow.csproj -- route --text "在 Client/GasUnity 中继续修复效果数据流和逻辑时钟边界" --path Client/GasUnity --path docs/changes/active/20261003-gas-unity-v1`：退出码 0，主领域 `Client`，风险信号为空。
 - `dotnet run --project Tool/AiWorkflow/Lyking.AiWorkflow.csproj -- validate --change docs/changes/active/20261003-gas-unity-v1`：退出码 0，`issues: []`、`isValid: true`。
 - `git diff --check`：退出码 0；`Client/GasUnity/Assets` 同名 `.meta` 检查 `MISSING_META=0`；核心源码 Unity 引用检查 `CORE_UNITY_REFERENCES=0`。
 

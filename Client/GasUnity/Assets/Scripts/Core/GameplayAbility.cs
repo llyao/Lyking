@@ -37,7 +37,8 @@ namespace Lyking.GameplayAbilities.Core
             string costAttribute = "Mana",
             string damageAttribute = "Health",
             GameplayTagContainer? requiredTags = null,
-            GameplayTagContainer? blockedTags = null)
+            GameplayTagContainer? blockedTags = null,
+            GameplayEffectSpec? damageEffect = null)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -66,6 +67,7 @@ namespace Lyking.GameplayAbilities.Core
             Damage = damage;
             CostAttribute = costAttribute;
             DamageAttribute = damageAttribute;
+            DamageEffect = damageEffect;
             _requiredTags = requiredTags?.Clone() ?? new GameplayTagContainer();
             _blockedTags = blockedTags?.Clone() ?? new GameplayTagContainer();
         }
@@ -81,6 +83,11 @@ namespace Lyking.GameplayAbilities.Core
         public string CostAttribute { get; }
 
         public string DamageAttribute { get; }
+
+        /// <summary>
+        /// 可选的伤害效果规格。规格只描述目标属性和默认增量，运行时可由攻击力覆盖增量。
+        /// </summary>
+        public GameplayEffectSpec? DamageEffect { get; }
 
         private readonly GameplayTagContainer _requiredTags;
 

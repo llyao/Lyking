@@ -64,6 +64,49 @@ public sealed class GameplayValueTests
         Assert.Equal(1, callbackCount);
     }
 
+    [Theory]
+    [InlineData(double.NaN)]
+    [InlineData(double.PositiveInfinity)]
+    [InlineData(double.NegativeInfinity)]
+    public void 手动时钟拒绝非有限的定时延迟(double delaySeconds)
+    {
+        var clock = new ManualGameplayClock();
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => clock.Schedule(delaySeconds, () => { }));
+    }
+
+    [Theory]
+    [InlineData(double.NaN)]
+    [InlineData(double.PositiveInfinity)]
+    [InlineData(double.NegativeInfinity)]
+    public void 手动时钟拒绝非有限的推进时间(double seconds)
+    {
+        var clock = new ManualGameplayClock();
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => clock.Advance(seconds));
+        Assert.Equal(0, clock.Now);
+    }
+
+    [Fact]
+    public void 手动时钟推进结果溢出时拒绝并保持当前时间()
+    {
+        var clock = new ManualGameplayClock();
+        clock.Advance(double.MaxValue);
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => clock.Advance(double.MaxValue));
+        Assert.Equal(double.MaxValue, clock.Now);
+    }
+
+    [Fact]
+    public void 手动时钟定时点溢出时拒绝并保持当前时间()
+    {
+        var clock = new ManualGameplayClock();
+        clock.Advance(double.MaxValue);
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => clock.Schedule(double.MaxValue, () => { }));
+        Assert.Equal(double.MaxValue, clock.Now);
+    }
+
     [Fact]
     public void 效果规格复制修改器并拒绝非有限值()
     {

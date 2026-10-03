@@ -21,9 +21,9 @@ namespace Lyking.GameplayAbilities.Core
 
         public int Schedule(double delaySeconds, Action callback)
         {
-            if (delaySeconds < 0)
+            if (delaySeconds < 0 || double.IsNaN(delaySeconds) || double.IsInfinity(delaySeconds))
             {
-                throw new ArgumentOutOfRangeException(nameof(delaySeconds));
+                throw new ArgumentOutOfRangeException(nameof(delaySeconds), "定时延迟必须是非负有限数值。");
             }
 
             if (callback is null)
@@ -31,8 +31,14 @@ namespace Lyking.GameplayAbilities.Core
                 throw new ArgumentNullException(nameof(callback));
             }
 
+            double dueAt = Now + delaySeconds;
+            if (!IsFinite(dueAt))
+            {
+                throw new ArgumentOutOfRangeException(nameof(delaySeconds), "定时点必须是有限数值。");
+            }
+
             int id = ++_nextTimerId;
-            _timers.Add(new Timer { Id = id, DueAt = Now + delaySeconds, Callback = callback });
+            _timers.Add(new Timer { Id = id, DueAt = dueAt, Callback = callback });
             return id;
         }
 
@@ -47,12 +53,18 @@ namespace Lyking.GameplayAbilities.Core
 
         public void Advance(double seconds)
         {
-            if (seconds < 0)
+            if (seconds < 0 || double.IsNaN(seconds) || double.IsInfinity(seconds))
             {
-                throw new ArgumentOutOfRangeException(nameof(seconds));
+                throw new ArgumentOutOfRangeException(nameof(seconds), "时钟推进时间必须是非负有限数值。");
             }
 
-            Now += seconds;
+            double nextNow = Now + seconds;
+            if (!IsFinite(nextNow))
+            {
+                throw new ArgumentOutOfRangeException(nameof(seconds), "时钟推进结果必须是有限数值。");
+            }
+
+            Now = nextNow;
             while (true)
             {
                 Timer? next = _timers
@@ -70,6 +82,11 @@ namespace Lyking.GameplayAbilities.Core
             }
 
             _timers.RemoveAll(timer => timer.Cancelled);
+        }
+
+        private static bool IsFinite(double value)
+        {
+            return !double.IsNaN(value) && !double.IsInfinity(value);
         }
     }
 }

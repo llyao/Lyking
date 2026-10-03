@@ -1,4 +1,5 @@
 using Xunit;
+using System.Collections.Generic;
 
 namespace Lyking.GameplayAbilities.Core.Tests;
 
@@ -37,6 +38,56 @@ public sealed class AbilitySystemComponentTests
 
         Assert.True(caster.TryActivate("Fireball", target).Succeeded);
         Assert.Equal(60, target.Attributes.Get("Health"));
+    }
+
+    [Fact]
+    public void 能力效果规格决定默认伤害属性和增量()
+    {
+        var caster = new AbilitySystemComponent(new ManualGameplayClock());
+        var target = new AbilitySystemComponent(new ManualGameplayClock());
+        caster.Attributes.Set("Mana", 100);
+        target.Attributes.Set("Shield", 100);
+        var effect = new GameplayEffectSpec(new Dictionary<string, double>
+        {
+            ["Shield"] = -15,
+        });
+        caster.GrantAbility(new GameplayAbility(
+            "Dispel",
+            cost: 10,
+            cooldownSeconds: 1,
+            damage: 999,
+            damageAttribute: "Shield",
+            damageEffect: effect));
+
+        AbilityActivationResult result = caster.TryActivate("Dispel", target);
+
+        Assert.True(result.Succeeded);
+        Assert.Equal(90, caster.Attributes.Get("Mana"));
+        Assert.Equal(85, target.Attributes.Get("Shield"));
+    }
+
+    [Fact]
+    public void 能力效果规格存在时攻击力仍覆盖默认增量()
+    {
+        var caster = new AbilitySystemComponent(new ManualGameplayClock());
+        var target = new AbilitySystemComponent(new ManualGameplayClock());
+        caster.Attributes.Set("Mana", 100);
+        caster.Attributes.Set("AttackPower", 40);
+        target.Attributes.Set("Shield", 100);
+        var effect = new GameplayEffectSpec(new Dictionary<string, double>
+        {
+            ["Shield"] = -15,
+        });
+        caster.GrantAbility(new GameplayAbility(
+            "Dispel",
+            cost: 10,
+            cooldownSeconds: 1,
+            damage: 999,
+            damageAttribute: "Shield",
+            damageEffect: effect));
+
+        Assert.True(caster.TryActivate("Dispel", target).Succeeded);
+        Assert.Equal(60, target.Attributes.Get("Shield"));
     }
 
     [Fact]

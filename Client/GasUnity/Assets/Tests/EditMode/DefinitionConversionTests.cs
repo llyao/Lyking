@@ -20,6 +20,7 @@ namespace Lyking.GameplayAbilities.EditModeTests
                 Assert.AreEqual(2d, ability.CooldownSeconds);
                 Assert.AreEqual(25d, ability.Damage);
                 Assert.IsTrue(ability.BlockedTags.HasTag("State.Stunned"));
+                Assert.IsNull(ability.DamageEffect);
             }
             finally
             {
@@ -41,6 +42,20 @@ namespace Lyking.GameplayAbilities.EditModeTests
             Assert.AreEqual(2d, ability.CooldownSeconds);
             Assert.AreEqual(25d, ability.Damage);
             Assert.IsTrue(ability.BlockedTags.HasTag("State.Stunned"));
+            Assert.IsNotNull(ability.DamageEffect);
+            Assert.AreEqual(-25d, ability.DamageEffect!.Modifiers["Health"]);
+        }
+
+        [Test]
+        public void 序列化火球效果资产转换为运行时规格()
+        {
+            GameplayEffectDefinition definition = AssetDatabase.LoadAssetAtPath<GameplayEffectDefinition>(
+                "Assets/Definitions/FireballDamageEffect.asset");
+
+            Assert.IsNotNull(definition);
+            var effect = definition!.ToRuntimeSpec();
+
+            Assert.AreEqual(-25d, effect.Modifiers["Health"]);
         }
     }
 }

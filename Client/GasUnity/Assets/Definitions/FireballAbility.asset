@@ -17,3 +17,4 @@ MonoBehaviour:
   cooldownSeconds: 2
   damage: 25
   blockedTag: State.Stunned
+  damageEffect: {fileID: 11400000, guid: 0b2e7f5b5f7a4bb68d36c81bd8a8b6cb, type: 2}
