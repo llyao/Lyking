@@ -44,10 +44,8 @@ namespace Lyking.GameplayAbilities.Core
                 throw new ArgumentException("能力 ID 不能为空。", nameof(id));
             }
 
-            if (cost < 0 || cooldownSeconds < 0 || damage < 0
-                || double.IsNaN(cost) || double.IsInfinity(cost)
-                || double.IsNaN(cooldownSeconds) || double.IsInfinity(cooldownSeconds)
-                || double.IsNaN(damage) || double.IsInfinity(damage))
+            if (!IsFinite(cost) || !IsFinite(cooldownSeconds) || !IsFinite(damage)
+                || cost < 0 || cooldownSeconds < 0 || damage < 0)
             {
                 throw new ArgumentOutOfRangeException("能力成本、冷却和伤害不能为负数。");
             }
@@ -68,8 +66,8 @@ namespace Lyking.GameplayAbilities.Core
             Damage = damage;
             CostAttribute = costAttribute;
             DamageAttribute = damageAttribute;
-            RequiredTags = requiredTags?.Clone() ?? new GameplayTagContainer();
-            BlockedTags = blockedTags?.Clone() ?? new GameplayTagContainer();
+            _requiredTags = requiredTags?.Clone() ?? new GameplayTagContainer();
+            _blockedTags = blockedTags?.Clone() ?? new GameplayTagContainer();
         }
 
         public string Id { get; }
@@ -84,9 +82,18 @@ namespace Lyking.GameplayAbilities.Core
 
         public string DamageAttribute { get; }
 
-        public GameplayTagContainer RequiredTags { get; }
+        private readonly GameplayTagContainer _requiredTags;
 
-        public GameplayTagContainer BlockedTags { get; }
+        private readonly GameplayTagContainer _blockedTags;
+
+        public GameplayTagContainer RequiredTags => _requiredTags.Clone();
+
+        public GameplayTagContainer BlockedTags => _blockedTags.Clone();
+
+        private static bool IsFinite(double value)
+        {
+            return !double.IsNaN(value) && !double.IsInfinity(value);
+        }
     }
 
     public static class FireballAbility

@@ -21,6 +21,21 @@ public sealed class GameplayValueTests
     }
 
     [Fact]
+    public void 能力标签属性不会暴露可变内部状态()
+    {
+        var ability = new GameplayAbility(
+            "Test",
+            cost: 1,
+            cooldownSeconds: 1,
+            damage: 1,
+            blockedTags: new GameplayTagContainer());
+
+        ability.BlockedTags.Add("State.Stunned");
+
+        Assert.False(ability.BlockedTags.HasTag("State.Stunned"));
+    }
+
+    [Fact]
     public void 属性变更发布前后值并支持增量()
     {
         var attributes = new AttributeSet();

@@ -38,13 +38,15 @@ namespace Lyking.GameplayAbilities.Core
             }
 
             Modifiers = new ReadOnlyDictionary<string, double>(copy);
-            GrantedTags = grantedTags?.Clone() ?? new GameplayTagContainer();
+            _grantedTags = grantedTags?.Clone() ?? new GameplayTagContainer();
             DurationSeconds = durationSeconds;
         }
 
         public IReadOnlyDictionary<string, double> Modifiers { get; }
 
-        public GameplayTagContainer GrantedTags { get; }
+        private readonly GameplayTagContainer _grantedTags;
+
+        public GameplayTagContainer GrantedTags => _grantedTags.Clone();
 
         public double DurationSeconds { get; }
     }
