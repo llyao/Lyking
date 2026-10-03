@@ -19,6 +19,7 @@
 - 效果数据流检查：`FireballAbility.asset` 引用 `FireballDamageEffect.asset`，`GameplayAbilityDefinition.ToRuntimeAbility()` 生成带 `GameplayEffectSpec` 的运行时能力，核心测试覆盖效果默认增量与 `AttackPower` 覆盖。
 - 手动时钟边界检查：`Schedule` 和 `Advance` 拒绝负数、`NaN`、正负无穷，参数化测试覆盖三类非有限输入。
 - 手动时钟溢出检查：`Now + seconds` 与 `Now + delaySeconds` 的非有限结果会被拒绝，溢出测试确认时钟状态和定时器列表不发生变化。
+- 设计口径复核：已将“修饰器叠加”明确收敛为本版的单一瞬时效果修饰器，持续效果生命周期和通用多修饰器应用列为后续独立范围。
 
 ### 当前缺口
 
