@@ -1,0 +1,17 @@
+{
+  "name": "Lyking.GameplayAbilities.Unity",
+  "rootNamespace": "Lyking.GameplayAbilities.Unity",
+  "references": [
+    "Lyking.GameplayAbilities.Core",
+    "Lyking.GameplayAbilities.Definitions"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

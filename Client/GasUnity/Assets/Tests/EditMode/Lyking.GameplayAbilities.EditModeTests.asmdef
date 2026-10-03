@@ -1,0 +1,20 @@
+{
+  "name": "Lyking.GameplayAbilities.EditModeTests",
+  "rootNamespace": "Lyking.GameplayAbilities.EditModeTests",
+  "references": [
+    "Lyking.GameplayAbilities.Core",
+    "Lyking.GameplayAbilities.Definitions",
+    "Lyking.GameplayAbilities.Unity",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

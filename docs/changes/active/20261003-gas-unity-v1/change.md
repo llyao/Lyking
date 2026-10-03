@@ -1,5 +1,5 @@
 <!-- lyking-ai
-{"schemaVersion":1,"id":"20261003-gas-unity-v1","profile":"controlled","status":"draft","areas":["Client"],"paths":["docs/changes/active/20261003-gas-unity-v1/","Client/GasUnity/","Client/CONTEXT.md","Client/README.md"],"riskSignals":["architecture-choice","runtime-integration"]}
+{"schemaVersion":1,"id":"20261003-gas-unity-v1","profile":"controlled","status":"active","areas":["Client"],"paths":["docs/changes/active/20261003-gas-unity-v1/","Client/GasUnity/","Client/CONTEXT.md","Client/README.md"],"riskSignals":["architecture-choice","runtime-integration"]}
 -->
 
 # Unity GAS 模拟项目第一版
@@ -10,7 +10,7 @@
 
 ## 当前状态
 
-设计已获用户确认，等待设计文档审阅后进入实现计划。当前仓库没有 Unity 工程，现有 `Client/GameFramework/` 只提供可复用的纯 C# 基础设施和 Unity 适配源码。
+设计和实施计划已获用户确认。纯 C# 核心、Unity 2022.3 工程骨架、演示场景、输入桥、状态面板和测试入口已实现；当前进入验证阶段。
 
 ## 完成后应看到什么
 
