@@ -6,17 +6,6 @@ using Lyking.GameFramework.PluginAbstractions.Modules;
 
 namespace Lyking.GameFramework.PluginHost.Hosting
 {
-    /// <summary>宿主整体状态。固定流转：Created → Starting → Ready → Draining → Stopped；启动失败进入 Failed。</summary>
-    public enum HostState
-    {
-        Created = 0,
-        Starting = 1,
-        Ready = 2,
-        Draining = 3,
-        Stopped = 4,
-        Failed = 5,
-    }
-
     /// <summary>线程安全的模块健康登记表。宿主持有，模块通过 IModuleContext 上报。</summary>
     public sealed class ModuleHealthRegistry
     {
@@ -77,6 +66,10 @@ namespace Lyking.GameFramework.PluginHost.Hosting
             }
         }
 
+        /// <summary>
+        /// 健康报告的顺序 id 引用：只承载"按哪个 id、什么顺序"输出报告。
+        /// 与 Planning/PlannedModule（拓扑计划项）无关；两者同名前缀但职责不同。
+        /// </summary>
         public readonly struct PlannedModuleRef
         {
             public PlannedModuleRef(string id)

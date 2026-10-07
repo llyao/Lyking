@@ -1,0 +1,19 @@
+{
+  "name": "Lyking.Frogger.EditModeTests",
+  "rootNamespace": "Lyking.Frogger.EditModeTests",
+  "references": [
+    "Lyking.Frogger.Core",
+    "Lyking.Frogger.Unity",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

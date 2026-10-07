@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.Snake.Unity",
+  "rootNamespace": "Lyking.Snake.Unity",
+  "references": [
+    "Lyking.Snake.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/00_GameObjectBaseline.unity
+    guid: 4f000000000000000000000000000001
+    enabled: 1
+  - serializedVersion: 2
+    path: Assets/Scenes/01_DotsEntities.unity
+    guid: 4f000000000000000000000000000002
+    enabled: 1
+  - serializedVersion: 2
+    path: Assets/Scenes/02_DotsJobs.unity
+    guid: 4f000000000000000000000000000003
+    enabled: 1
+  - serializedVersion: 2
+    path: Assets/Scenes/03_EntitasStyle.unity
+    guid: 4f000000000000000000000000000004
+    enabled: 1
+  - serializedVersion: 2
+    path: Assets/Scenes/04_HydraVetBrain.unity
+    guid: 4f000000000000000000000000000005
+    enabled: 1
+  - serializedVersion: 2
+    path: Assets/Scenes/05_UnityMass.unity
+    guid: 4f000000000000000000000000000006
+    enabled: 1
+  m_configObjects: {}

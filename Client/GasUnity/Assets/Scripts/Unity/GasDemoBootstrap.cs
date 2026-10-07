@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using Lyking.GameplayAbilities.Core;
 using Lyking.GameplayAbilities.Definitions;

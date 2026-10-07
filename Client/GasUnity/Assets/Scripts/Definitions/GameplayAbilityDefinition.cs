@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using Lyking.GameplayAbilities.Core;
 using UnityEngine;
@@ -36,9 +37,9 @@ namespace Lyking.GameplayAbilities.Definitions
 
                 foreach (var modifier in runtimeEffect.Modifiers)
                 {
-                    if (modifier.Value > 0)
+                    if (modifier.Value >= 0)
                     {
-                        throw new InvalidOperationException("能力伤害效果的属性增量不能为正数。");
+                        throw new InvalidOperationException("能力伤害效果的属性增量必须为负数。");
                     }
 
                     runtimeDamageAttribute = modifier.Key;

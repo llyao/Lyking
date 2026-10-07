@@ -1,0 +1,19 @@
+{
+  "name": "Lyking.Simon.EditModeTests",
+  "rootNamespace": "Lyking.Simon.EditModeTests",
+  "references": [
+    "Lyking.Simon.Core",
+    "Lyking.Simon.Unity",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

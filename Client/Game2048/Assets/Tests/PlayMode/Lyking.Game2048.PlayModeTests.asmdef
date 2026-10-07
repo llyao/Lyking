@@ -1,0 +1,18 @@
+{
+  "name": "Lyking.Game2048.PlayModeTests",
+  "rootNamespace": "Lyking.Game2048.PlayModeTests",
+  "references": [
+    "Lyking.Game2048.Core",
+    "Lyking.Game2048.Unity",
+    "UnityEngine.TestRunner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

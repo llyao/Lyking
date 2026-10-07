@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.Game2048.Core.csproj" />
+  <Project Path="Tests/Lyking.Game2048.Core.Tests.csproj" />
+</Solution>

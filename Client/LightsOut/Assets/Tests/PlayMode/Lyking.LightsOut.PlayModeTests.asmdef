@@ -1,0 +1,18 @@
+{
+  "name": "Lyking.LightsOut.PlayModeTests",
+  "rootNamespace": "Lyking.LightsOut.PlayModeTests",
+  "references": [
+    "Lyking.LightsOut.Core",
+    "Lyking.LightsOut.Unity",
+    "UnityEngine.TestRunner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

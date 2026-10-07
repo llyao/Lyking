@@ -1,0 +1,14 @@
+{
+  "name": "Lyking.MemoryMatch.Core",
+  "rootNamespace": "Lyking.MemoryMatch.Core",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}

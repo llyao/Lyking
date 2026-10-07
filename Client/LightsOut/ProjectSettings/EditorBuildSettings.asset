@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/LightsOutDemo.unity
+    guid: 95db5cb2f1964f7c88be746005d2f66a
+    enabled: 1
+  m_configObjects: {}

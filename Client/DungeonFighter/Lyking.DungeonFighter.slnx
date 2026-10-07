@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.DungeonFighter.Core.csproj" />
+  <Project Path="Tests/Lyking.DungeonFighter.Core.Tests.csproj" />
+</Solution>

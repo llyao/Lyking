@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.Bomberman.Core.csproj" />
+  <Project Path="Tests/Lyking.Bomberman.Core.Tests.csproj" />
+</Solution>

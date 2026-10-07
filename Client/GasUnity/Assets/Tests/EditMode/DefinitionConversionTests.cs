@@ -57,5 +57,51 @@ namespace Lyking.GameplayAbilities.EditModeTests
 
             Assert.AreEqual(-25d, effect.Modifiers["Health"]);
         }
+
+        [Test]
+        public void 序列化持续时间和授予标签转换为活动效果规格()
+        {
+            GameplayEffectDefinition definition = ScriptableObject.CreateInstance<GameplayEffectDefinition>();
+            try
+            {
+                var serialized = new SerializedObject(definition);
+                serialized.FindProperty("durationSeconds").floatValue = 5;
+                SerializedProperty tags = serialized.FindProperty("grantedTags");
+                tags.arraySize = 1;
+                tags.GetArrayElementAtIndex(0).stringValue = "State.Burning";
+                serialized.ApplyModifiedPropertiesWithoutUndo();
+
+                var effect = definition.ToRuntimeSpec();
+
+                Assert.AreEqual(5d, effect.DurationSeconds, 0.0001d);
+                Assert.IsFalse(effect.IsInfinite);
+                Assert.IsTrue(effect.GrantedTags.HasTag("State.Burning"));
+            }
+            finally
+            {
+                Object.DestroyImmediate(definition);
+            }
+        }
+
+        [Test]
+        public void 序列化无限标记转换为无限效果规格()
+        {
+            GameplayEffectDefinition definition = ScriptableObject.CreateInstance<GameplayEffectDefinition>();
+            try
+            {
+                var serialized = new SerializedObject(definition);
+                serialized.FindProperty("isInfinite").boolValue = true;
+                serialized.ApplyModifiedPropertiesWithoutUndo();
+
+                var effect = definition.ToRuntimeSpec();
+
+                Assert.IsTrue(effect.IsInfinite);
+                Assert.AreEqual(0d, effect.DurationSeconds);
+            }
+            finally
+            {
+                Object.DestroyImmediate(definition);
+            }
+        }
     }
 }

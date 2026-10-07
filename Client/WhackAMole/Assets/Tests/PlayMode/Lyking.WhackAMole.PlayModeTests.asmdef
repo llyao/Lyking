@@ -1,0 +1,18 @@
+{
+  "name": "Lyking.WhackAMole.PlayModeTests",
+  "rootNamespace": "Lyking.WhackAMole.PlayModeTests",
+  "references": [
+    "Lyking.WhackAMole.Core",
+    "Lyking.WhackAMole.Unity",
+    "UnityEngine.TestRunner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

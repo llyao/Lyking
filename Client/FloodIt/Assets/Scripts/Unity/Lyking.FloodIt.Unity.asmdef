@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.FloodIt.Unity",
+  "rootNamespace": "Lyking.FloodIt.Unity",
+  "references": [
+    "Lyking.FloodIt.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

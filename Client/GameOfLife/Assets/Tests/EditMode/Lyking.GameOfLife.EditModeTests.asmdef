@@ -1,0 +1,19 @@
+{
+  "name": "Lyking.GameOfLife.EditModeTests",
+  "rootNamespace": "Lyking.GameOfLife.EditModeTests",
+  "references": [
+    "Lyking.GameOfLife.Core",
+    "Lyking.GameOfLife.Unity",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

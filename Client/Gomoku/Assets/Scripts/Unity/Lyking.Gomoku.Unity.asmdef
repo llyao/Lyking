@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.Gomoku.Unity",
+  "rootNamespace": "Lyking.Gomoku.Unity",
+  "references": [
+    "Lyking.Gomoku.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

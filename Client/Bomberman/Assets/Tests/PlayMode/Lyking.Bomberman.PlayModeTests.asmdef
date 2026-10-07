@@ -1,0 +1,18 @@
+{
+  "name": "Lyking.Bomberman.PlayModeTests",
+  "rootNamespace": "Lyking.Bomberman.PlayModeTests",
+  "references": [
+    "Lyking.Bomberman.Core",
+    "Lyking.Bomberman.Unity",
+    "UnityEngine.TestRunner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

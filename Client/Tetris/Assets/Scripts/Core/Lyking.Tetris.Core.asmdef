@@ -1,0 +1,14 @@
+{
+  "name": "Lyking.Tetris.Core",
+  "rootNamespace": "Lyking.Tetris.Core",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}

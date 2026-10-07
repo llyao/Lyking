@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.Simon.Unity",
+  "rootNamespace": "Lyking.Simon.Unity",
+  "references": [
+    "Lyking.Simon.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

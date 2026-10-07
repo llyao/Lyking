@@ -1,0 +1,16 @@
+{
+    "name": "Lyking.GameFramework.Client.UI",
+    "rootNamespace": "Lyking.GameFramework.Client.UI",
+    "references": [
+        "Lyking.GameFramework.Client.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

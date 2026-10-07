@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.Wordle.Core.csproj" />
+  <Project Path="Tests/Lyking.Wordle.Core.Tests.csproj" />
+</Solution>

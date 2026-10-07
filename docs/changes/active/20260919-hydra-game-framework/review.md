@@ -83,3 +83,11 @@ Hydra 的 Character Save 使用 owner generation、Load Image、Append、Checkpo
 “可插拔”不能只等同于运行时加载 DLL。方案已补充 `PluginAbstractions + PluginHost`：插件通过 `PluginId`、`ApiVersion`、`Capabilities`、依赖版本、状态命名空间、注册入口和生命周期入口声明自己；宿主在启动前校验禁止引用、依赖 DAG、TypeId、序列化版本和可热更边界。
 
 插件分为 `SimulationModule`、`HostAdapter`、`PresentationAdapter` 和 `ToolPlugin`。Hydra、GameFrameX、Unity、Laya、Godot 和 MongoDB 都只能作为相应插件或 Profile 实现，不能反向成为 Kernel 依赖。插件启动按拓扑顺序，停止按逆拓扑顺序；必需插件失败拒绝启动，可选插件显式降级；核心、Contracts、Snapshot schema 和 Simulation 基础模块不允许任意热卸载。
+
+## Lyking 模块宿主边界复核（2026-10-03）
+
+当前 Share `PluginHost` 与 Client `ModuleHost` 解决不同问题：前者组合服务图和管理异步生命周期，后者还拥有 Unity 主线程帧泵。建议保留两个运行时 Host，只共享稳定模块身份/版本规则与兼容规范；等出现同一插件需要跨两者运行的真实需求，再建 adapter。
+
+实施前需要澄清的合同风险：`ModuleDependency.Required` 目前没有影响默认验证；可选模块启动失败后仍会进入完整计划的 Drain/Stop 遍历；`CreateScope` 只管理 scoped 服务，不启动 scoped 模块；`StateNamespace` 尚无状态写入门禁；生命周期模块实例在 VContainer Apply 之前由调用方提供，因此不能对它本身使用容器构造注入。这些事项先作为后续模块合同验收，不在本轮扩大代码范围。
+
+“可插拔”分层定义为：首版是编译期包/显式模块组合；运行时可创建服务 Scope；内容包可按原子发布合同切换；任意 DLL 动态加载和热卸载暂不支持。这样与 Unity/AOT、活动对象引用和状态迁移约束一致。

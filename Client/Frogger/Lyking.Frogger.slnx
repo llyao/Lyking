@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.Frogger.Core.csproj" />
+  <Project Path="Tests/Lyking.Frogger.Core.Tests.csproj" />
+</Solution>

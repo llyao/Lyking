@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.EndlessRunner.Unity",
+  "rootNamespace": "Lyking.EndlessRunner.Unity",
+  "references": [
+    "Lyking.EndlessRunner.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

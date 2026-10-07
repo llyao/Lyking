@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.EndlessRunner.Core.csproj" />
+  <Project Path="Tests/Lyking.EndlessRunner.Core.Tests.csproj" />
+</Solution>

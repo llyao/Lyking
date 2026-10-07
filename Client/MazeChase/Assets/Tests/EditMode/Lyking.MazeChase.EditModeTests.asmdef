@@ -1,0 +1,19 @@
+{
+  "name": "Lyking.MazeChase.EditModeTests",
+  "rootNamespace": "Lyking.MazeChase.EditModeTests",
+  "references": [
+    "Lyking.MazeChase.Core",
+    "Lyking.MazeChase.Unity",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

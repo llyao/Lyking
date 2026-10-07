@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/SokobanDemo.unity
+    guid: 799dc97bdfd3420e83d56c2d4120f640
+    enabled: 1
+  m_configObjects: {}

@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.Breakout.Unity",
+  "rootNamespace": "Lyking.Breakout.Unity",
+  "references": [
+    "Lyking.Breakout.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

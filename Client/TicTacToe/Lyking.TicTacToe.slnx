@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.TicTacToe.Core.csproj" />
+  <Project Path="Tests/Lyking.TicTacToe.Core.Tests.csproj" />
+</Solution>

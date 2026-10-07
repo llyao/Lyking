@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.DungeonFighter.Unity",
+  "rootNamespace": "Lyking.DungeonFighter.Unity",
+  "references": [
+    "Lyking.DungeonFighter.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

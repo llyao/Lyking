@@ -55,31 +55,147 @@ public sealed class AbilityFailureTests
     }
 
     [Fact]
-    public void 成功事件按激活成本效果属性冷却顺序发布()
+    public void 成功施法为成本和目标属性各发布一次变更事件()
     {
         var clock = new ManualGameplayClock();
         var caster = new AbilitySystemComponent(clock);
         var target = new AbilitySystemComponent(clock);
-        var events = new List<GameplayEvent>();
+        var events = new List<(string Source, GameplayEvent Event)>();
         caster.Attributes.Set("Mana", 100);
         target.Attributes.Set("Health", 100);
         caster.GrantAbility(FireballAbility.Create(cost: 20, cooldown: 2, damage: 25));
-        caster.EventPublished += events.Add;
+        caster.EventPublished += gameplayEvent => events.Add(("caster", gameplayEvent));
+        target.EventPublished += gameplayEvent => events.Add(("target", gameplayEvent));
 
         AbilityActivationResult result = caster.TryActivate("Fireball", target);
-        var types = events.Select(item => item.Type).ToArray();
 
         Assert.True(result.Succeeded);
         Assert.Equal(
             new[]
             {
-                GameplayEventType.AbilityActivated,
-                GameplayEventType.CostCommitted,
-                GameplayEventType.EffectApplied,
-                GameplayEventType.AttributeChanged,
-                GameplayEventType.CooldownStarted,
+                ("caster", GameplayEventType.AbilityActivated, "Fireball", (string?)null),
+                ("caster", GameplayEventType.CostCommitted, "Fireball", "Mana"),
+                ("caster", GameplayEventType.AttributeChanged, "Fireball", "Mana"),
+                ("caster", GameplayEventType.EffectApplied, "Fireball", "Health"),
+                ("target", GameplayEventType.AttributeChanged, "Fireball", "Health"),
+                ("caster", GameplayEventType.CooldownStarted, "Fireball", (string?)null),
             },
-            types);
+            events.Select(item => (item.Source, item.Event.Type, item.Event.AbilityId, item.Event.AttributeName)).ToArray());
+    }
+
+    [Fact]
+    public void 直接属性写入事件没有能力来源()
+    {
+        var component = new AbilitySystemComponent(new ManualGameplayClock());
+        var events = new List<GameplayEvent>();
+        component.EventPublished += events.Add;
+
+        component.Attributes.Set("Mana", 50);
+
+        GameplayEvent gameplayEvent = Assert.Single(events);
+        Assert.Equal(GameplayEventType.AttributeChanged, gameplayEvent.Type);
+        Assert.Equal(string.Empty, gameplayEvent.AbilityId);
+    }
+
+    [Fact]
+    public void 事件回调不能递归激活零冷却能力()
+    {
+        var caster = new AbilitySystemComponent(new ManualGameplayClock());
+        var target = new AbilitySystemComponent(new ManualGameplayClock());
+        caster.GrantAbility(new GameplayAbility("Free", cost: 0, cooldownSeconds: 0, damage: 0));
+        var events = new List<GameplayEvent>();
+        bool attemptedReentry = false;
+        int activationEventCount = 0;
+        AbilityActivationResult nestedResult = default;
+        caster.EventPublished += events.Add;
+        caster.EventPublished += gameplayEvent =>
+        {
+            if (gameplayEvent.Type != GameplayEventType.AbilityActivated)
+            {
+                return;
+            }
+
+            activationEventCount++;
+            if (!attemptedReentry)
+            {
+                attemptedReentry = true;
+                nestedResult = caster.TryActivate("Free", target);
+            }
+        };
+
+        AbilityActivationResult result = caster.TryActivate("Free", target);
+
+        Assert.True(result.Succeeded);
+        Assert.False(nestedResult.Succeeded);
+        Assert.Equal(AbilityFailureReason.ActivationInProgress, nestedResult.Reason);
+        Assert.Equal(1, activationEventCount);
+        Assert.DoesNotContain(events, item => item.Type == GameplayEventType.AbilityRejected);
+        Assert.Equal(1, events.Count(item => item.Type == GameplayEventType.AbilityActivated));
+    }
+
+    [Fact]
+    public void 火球路径拒绝带持续时间的效果且不提交状态()
+    {
+        var caster = new AbilitySystemComponent(new ManualGameplayClock());
+        var target = new AbilitySystemComponent(new ManualGameplayClock());
+        var events = new List<GameplayEvent>();
+        var effect = new GameplayEffectSpec(
+            new Dictionary<string, double> { ["Health"] = -25 },
+            durationSeconds: 5);
+        caster.Attributes.Set("Mana", 100);
+        target.Attributes.Set("Health", 100);
+        caster.GrantAbility(new GameplayAbility(
+            "Fireball",
+            cost: 20,
+            cooldownSeconds: 2,
+            damage: 25,
+            damageEffect: effect));
+        caster.EventPublished += events.Add;
+
+        AbilityActivationResult result = caster.TryActivate("Fireball", target);
+
+        Assert.False(result.Succeeded);
+        Assert.Equal(AbilityFailureReason.InvalidEffect, result.Reason);
+        Assert.Equal(100, caster.Attributes.Get("Mana"));
+        Assert.Equal(100, target.Attributes.Get("Health"));
+        Assert.Equal(0, caster.GetCooldownRemaining("Fireball"));
+        Assert.Single(events);
+        Assert.Equal(GameplayEventType.AbilityRejected, events[0].Type);
+        Assert.Equal(AbilityFailureReason.InvalidEffect, events[0].Reason);
+    }
+
+    [Fact]
+    public void 火球路径拒绝授予标签的效果且不提交状态()
+    {
+        var caster = new AbilitySystemComponent(new ManualGameplayClock());
+        var target = new AbilitySystemComponent(new ManualGameplayClock());
+        var events = new List<GameplayEvent>();
+        var grantedTags = new GameplayTagContainer();
+        grantedTags.Add("State.Burning");
+        var effect = new GameplayEffectSpec(
+            new Dictionary<string, double> { ["Health"] = -25 },
+            grantedTags: grantedTags);
+        caster.Attributes.Set("Mana", 100);
+        target.Attributes.Set("Health", 100);
+        caster.GrantAbility(new GameplayAbility(
+            "Fireball",
+            cost: 20,
+            cooldownSeconds: 2,
+            damage: 25,
+            damageEffect: effect));
+        caster.EventPublished += events.Add;
+
+        AbilityActivationResult result = caster.TryActivate("Fireball", target);
+
+        Assert.False(result.Succeeded);
+        Assert.Equal(AbilityFailureReason.InvalidEffect, result.Reason);
+        Assert.Equal(100, caster.Attributes.Get("Mana"));
+        Assert.Equal(100, target.Attributes.Get("Health"));
+        Assert.False(target.OwnedTags.HasTag("State.Burning"));
+        Assert.Equal(0, caster.GetCooldownRemaining("Fireball"));
+        Assert.Single(events);
+        Assert.Equal(GameplayEventType.AbilityRejected, events[0].Type);
+        Assert.Equal(AbilityFailureReason.InvalidEffect, events[0].Reason);
     }
 
     [Fact]

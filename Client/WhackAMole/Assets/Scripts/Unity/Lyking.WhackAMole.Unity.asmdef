@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.WhackAMole.Unity",
+  "rootNamespace": "Lyking.WhackAMole.Unity",
+  "references": [
+    "Lyking.WhackAMole.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

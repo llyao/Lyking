@@ -1,0 +1,14 @@
+{
+  "name": "Lyking.Game2048.Core",
+  "rootNamespace": "Lyking.Game2048.Core",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}

@@ -8,8 +8,9 @@ using Lyking.GameFramework.PluginAbstractions.Registrar;
 namespace Lyking.GameFramework.PluginAbstractions
 {
     /// <summary>
-    /// 游戏模块合同。生命周期顺序固定：
-    /// Describe → Contribute → (Plan/Validate 由宿主执行) → Start → Ready → Drain → Stop。
+    /// 游戏模块合同。模块回调序列固定：Describe → Contribute → Start → Drain → Stop；
+    /// Plan/Validate/Apply 由宿主在 Start 前执行，模块不参与；Ready 是宿主状态（HostState.Ready），
+    /// 不是模块回调阶段；容器释放发生在停止或失败回滚之后。
     /// 模块实例由宿主持有；其运行体通过 IModuleContext 解析协作者，
     /// 协作者之间的依赖通过构造函数注入完成。
     /// </summary>

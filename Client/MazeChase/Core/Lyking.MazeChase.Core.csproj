@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Lyking.MazeChase.Core</RootNamespace>
+    <AssemblyName>Lyking.MazeChase.Core</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Assets\Scripts\Core\**\*.cs" />
+  </ItemGroup>
+</Project>

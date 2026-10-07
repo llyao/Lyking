@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.ConnectFour.Unity",
+  "rootNamespace": "Lyking.ConnectFour.Unity",
+  "references": [
+    "Lyking.ConnectFour.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

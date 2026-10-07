@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,31 @@ namespace Lyking.GameplayAbilities.Core
 
         public int Count => _tags.Count;
 
-        public void Add(GameplayTag tag) => _tags.Add(tag);
+        internal IEnumerable<GameplayTag> Enumerate() => _tags;
+
+        public void Add(GameplayTag tag)
+        {
+            if (tag.IsEmpty)
+            {
+                throw new ArgumentException("GameplayTag 容器不能包含空标签。", nameof(tag));
+            }
+
+            _tags.Add(tag);
+        }
 
         public void Add(string tag) => Add(new GameplayTag(tag));
 
-        public bool Remove(GameplayTag tag) => _tags.Remove(tag);
+        public bool Remove(GameplayTag tag) => !tag.IsEmpty && _tags.Remove(tag);
 
         public bool Remove(string tag) => Remove(new GameplayTag(tag));
 
         public bool HasTag(GameplayTag requested)
         {
+            if (requested.IsEmpty)
+            {
+                return false;
+            }
+
             return _tags.Any(owned => owned.Equals(requested) || requested.IsParentOf(owned));
         }
 

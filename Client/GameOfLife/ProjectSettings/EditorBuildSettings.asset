@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/GameOfLifeDemo.unity
+    guid: 39971a36282f43068d4ac24ca436295d
+    enabled: 1
+  m_configObjects: {}

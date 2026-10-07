@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/SnakeDemo.unity
+    guid: d1855a26442a440ab1ce15dd1863e207
+    enabled: 1
+  m_configObjects: {}

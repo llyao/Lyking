@@ -1,0 +1,14 @@
+{
+  "name": "Lyking.Sokoban.Core",
+  "rootNamespace": "Lyking.Sokoban.Core",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}

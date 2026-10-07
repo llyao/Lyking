@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- 核心层：不依赖 UnityEngine 与第三方容器，Unity 侧通过同名 asmdef 编译同一批源码。 -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Lyking.GameFramework.Client.Core</RootNamespace>
+    <AssemblyName>Lyking.GameFramework.Client.Core</AssemblyName>
+    <Description>客户端框架核心层：日志、事件、服务注册、模块生命周期、计时、对象池、状态机与 GameClient 装配门面。</Description>
+  </PropertyGroup>
+
+</Project>

@@ -21,6 +21,39 @@ public sealed class GameplayValueTests
     }
 
     [Fact]
+    public void 默认标签哈希稳定且不抛异常()
+    {
+        GameplayTag empty = default;
+
+        Assert.True(empty.IsEmpty);
+        Assert.Equal(string.Empty, empty.Name);
+        Assert.Equal(string.Empty, empty.ToString());
+        Assert.Equal(empty.GetHashCode(), empty.GetHashCode());
+    }
+
+    [Fact]
+    public void 空标签不参与层级匹配且不能加入容器()
+    {
+        var tags = new GameplayTagContainer();
+        tags.Add("State.Stunned");
+        GameplayTag empty = default;
+
+        Assert.False(empty.IsParentOf(new GameplayTag("State.Stunned")));
+        Assert.False(new GameplayTag("State").IsParentOf(empty));
+        Assert.False(tags.HasTag(empty));
+        Assert.Throws<ArgumentException>(() => tags.Add(empty));
+    }
+
+    [Theory]
+    [InlineData(".State")]
+    [InlineData("State.")]
+    [InlineData("State..Stunned")]
+    public void 标签层级不允许空段(string name)
+    {
+        Assert.Throws<ArgumentException>(() => new GameplayTag(name));
+    }
+
+    [Fact]
     public void 能力标签属性不会暴露可变内部状态()
     {
         var ability = new GameplayAbility(

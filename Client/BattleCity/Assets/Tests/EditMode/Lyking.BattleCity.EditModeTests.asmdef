@@ -1,0 +1,19 @@
+{
+  "name": "Lyking.BattleCity.EditModeTests",
+  "rootNamespace": "Lyking.BattleCity.EditModeTests",
+  "references": [
+    "Lyking.BattleCity.Core",
+    "Lyking.BattleCity.Unity",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

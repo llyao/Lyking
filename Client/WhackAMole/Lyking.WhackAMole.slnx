@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.WhackAMole.Core.csproj" />
+  <Project Path="Tests/Lyking.WhackAMole.Core.Tests.csproj" />
+</Solution>

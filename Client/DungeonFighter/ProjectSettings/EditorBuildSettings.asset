@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/DungeonFighterDemo.unity
+    guid: f07a6444e1466c62912cd6d35c8329f1
+    enabled: 1
+  m_configObjects: {}

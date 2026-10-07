@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.Minesweeper.Core.csproj" />
+  <Project Path="Tests/Lyking.Minesweeper.Core.Tests.csproj" />
+</Solution>

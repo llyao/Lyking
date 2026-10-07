@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.BattleCity.Unity",
+  "rootNamespace": "Lyking.BattleCity.Unity",
+  "references": [
+    "Lyking.BattleCity.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

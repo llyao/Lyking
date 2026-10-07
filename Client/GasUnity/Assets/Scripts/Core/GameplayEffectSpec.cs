@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +11,15 @@ namespace Lyking.GameplayAbilities.Core
             IReadOnlyDictionary<string, double> modifiers,
             GameplayTagContainer? grantedTags = null,
             double durationSeconds = 0)
+            : this(modifiers, grantedTags, durationSeconds, isInfinite: false)
+        {
+        }
+
+        private GameplayEffectSpec(
+            IReadOnlyDictionary<string, double> modifiers,
+            GameplayTagContainer? grantedTags,
+            double durationSeconds,
+            bool isInfinite)
         {
             if (modifiers is null)
             {
@@ -32,14 +42,22 @@ namespace Lyking.GameplayAbilities.Core
                 copy.Add(modifier.Key, modifier.Value);
             }
 
-            if (durationSeconds < 0 || double.IsNaN(durationSeconds) || double.IsInfinity(durationSeconds))
+            if (!isInfinite && (durationSeconds < 0 || double.IsNaN(durationSeconds) || double.IsInfinity(durationSeconds)))
             {
                 throw new ArgumentOutOfRangeException(nameof(durationSeconds), "效果持续时间必须是非负有限数值。");
             }
 
             Modifiers = new ReadOnlyDictionary<string, double>(copy);
             _grantedTags = grantedTags?.Clone() ?? new GameplayTagContainer();
-            DurationSeconds = durationSeconds;
+            DurationSeconds = isInfinite ? 0 : durationSeconds;
+            IsInfinite = isInfinite;
+        }
+
+        public static GameplayEffectSpec CreateInfinite(
+            IReadOnlyDictionary<string, double> modifiers,
+            GameplayTagContainer? grantedTags = null)
+        {
+            return new GameplayEffectSpec(modifiers, grantedTags, 0, isInfinite: true);
         }
 
         public IReadOnlyDictionary<string, double> Modifiers { get; }
@@ -49,5 +67,7 @@ namespace Lyking.GameplayAbilities.Core
         public GameplayTagContainer GrantedTags => _grantedTags.Clone();
 
         public double DurationSeconds { get; }
+
+        public bool IsInfinite { get; }
     }
 }

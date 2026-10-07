@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.Asteroids.Unity",
+  "rootNamespace": "Lyking.Asteroids.Unity",
+  "references": [
+    "Lyking.Asteroids.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

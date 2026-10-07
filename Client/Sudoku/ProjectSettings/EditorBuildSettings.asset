@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/SudokuDemo.unity
+    guid: 66339fddbc194aa1b4c3a0be62994c3c
+    enabled: 1
+  m_configObjects: {}

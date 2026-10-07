@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.DoodleJumper.Unity",
+  "rootNamespace": "Lyking.DoodleJumper.Unity",
+  "references": [
+    "Lyking.DoodleJumper.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

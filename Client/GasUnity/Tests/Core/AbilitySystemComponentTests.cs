@@ -1,5 +1,6 @@
 using Xunit;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lyking.GameplayAbilities.Core.Tests;
 
@@ -88,6 +89,62 @@ public sealed class AbilitySystemComponentTests
 
         Assert.True(caster.TryActivate("Dispel", target).Succeeded);
         Assert.Equal(60, target.Attributes.Get("Shield"));
+    }
+
+    [Fact]
+    public void 零增量伤害效果不能被攻击力覆盖成实际伤害()
+    {
+        var caster = new AbilitySystemComponent(new ManualGameplayClock());
+        var target = new AbilitySystemComponent(new ManualGameplayClock());
+        caster.Attributes.Set("Mana", 100);
+        caster.Attributes.Set("AttackPower", 40);
+        target.Attributes.Set("Health", 100);
+        var effect = new GameplayEffectSpec(new Dictionary<string, double>
+        {
+            ["Health"] = 0,
+        });
+        caster.GrantAbility(new GameplayAbility(
+            "Fireball",
+            cost: 10,
+            cooldownSeconds: 1,
+            damage: 25,
+            damageEffect: effect));
+
+        AbilityActivationResult result = caster.TryActivate("Fireball", target);
+
+        Assert.False(result.Succeeded);
+        Assert.Equal(AbilityFailureReason.InvalidEffect, result.Reason);
+        Assert.Equal(100, caster.Attributes.Get("Mana"));
+        Assert.Equal(100, target.Attributes.Get("Health"));
+    }
+
+    [Fact]
+    public void 无限伤害效果不能作为能力伤害且不提交任何状态()
+    {
+        var clock = new ManualGameplayClock();
+        var caster = new AbilitySystemComponent(clock);
+        var target = new AbilitySystemComponent(clock);
+        caster.Attributes.Set("Mana", 100);
+        caster.Attributes.Set("AttackPower", 40);
+        target.Attributes.Set("Health", 100);
+        caster.GrantAbility(new GameplayAbility(
+            "AuraStrike",
+            cost: 20,
+            cooldownSeconds: 2,
+            damage: 25,
+            damageEffect: GameplayEffectSpec.CreateInfinite(
+                new Dictionary<string, double> { ["Health"] = -25 })));
+        var events = new List<GameplayEvent>();
+        caster.EventPublished += events.Add;
+
+        AbilityActivationResult result = caster.TryActivate("AuraStrike", target);
+
+        Assert.False(result.Succeeded);
+        Assert.Equal(AbilityFailureReason.InvalidEffect, result.Reason);
+        Assert.Equal(100, caster.Attributes.Get("Mana"));
+        Assert.Equal(100, target.Attributes.Get("Health"));
+        Assert.Equal(0, caster.GetCooldownRemaining("AuraStrike"));
+        Assert.Equal(new[] { GameplayEventType.AbilityRejected }, events.Select(item => item.Type).ToArray());
     }
 
     [Fact]

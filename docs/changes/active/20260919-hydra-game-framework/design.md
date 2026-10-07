@@ -501,6 +501,40 @@ public interface IModuleLifecycleMiddleware   // 生命周期中间件钩子链
 
 第一版不强制拆成多个 NuGet 或独立仓库，但程序集和目录边界应按上述职责建立。通用内核不引用 `Client`、`Server`、`Tool` 和具体平台；运行配置可以组合内核与多个 adapter；产品玩法只依赖 `Modules` 和配置合同。
 
+### 3.10 Lyking 现有模块宿主的边界与统一策略
+
+目前 Lyking 已有两套有意分工的模块系统。它们可以共享“显式身份、稳定依赖顺序、失败可诊断、资源归 owner”的原则，但不应把帧泵和服务宿主硬合成一个接口。
+
+| 维度 | Share `PluginHost` | Client `ModuleHost` | 判断 |
+|---|---|---|---|
+| 主要职责 | 组合服务图、校验计划、物化容器、管理异步生命周期 | 管理客户端模块初始化、Start、Update/Fixed/Late 帧泵和关闭 | 不同运行职责，应保留两个 Host |
+| 模块发现 | 调用方传入已创建的 `IGameModule` 实例；当前没有文件 manifest、程序集插件加载器或 DLL 热卸载 | Builder 可显式添加，也可反射扫描带 `[GameModule]` 的程序集类型 | Share 是组合宿主中间件，不应对外宣称已支持动态插件加载；Client 扫描需承担 IL2CPP 裁剪保留成本 |
+| 依赖合同 | `ModuleId`、模块版本下限、能力和状态命名空间；组合计划按依赖拓扑排序 | 字符串模块名、依赖名和优先级；依赖优先于优先级，输出稳定 | Share 合同更适合跨 Host；Client 元数据目前是本地运行顺序合同 |
+| 生命周期 | `Describe/Contribute` 后 Plan/Validate/Apply，再 Start/Drain/Stop；无逐帧回调 | Initialize/Start 后进入 Update/FixedUpdate/LateUpdate，最后 Shutdown | Share 不应新增为客户端主帧泵；Client 不需要承担 Server/Tool 的 CompositionPlan 全量规则 |
+| 服务对象 | VContainer 物化 Singleton/Scoped/Transient，可创建根下命名 Scope | `ServiceRegistry` 以实例为主，基本是 GameClient 级共享，没有每 Session Scope | Share 适合跨进程/会话宿主；Client 先保持单 GameClient 生命周期，之后按真实多会话需求再加 scope |
+| 跨模块调用 | 普通协作者可由构造函数注入；模块生命周期上下文提供 `Resolve/TryResolve` | 模块经 `ModuleEnvironment.Services.Resolve` 获取服务；服务注册表是 Service Locator | 业务服务优先构造注入；Resolve 只留在 composition root 或薄生命周期适配处，不能散到高频业务逻辑 |
+
+#### 应统一与应分开的内容
+
+**统一概念和静态规则：** 稳定模块 ID、依赖版本规则、必需/可选语义、能力合同、资源所有权、关闭期间拒绝新输入、诊断字段和版本清单格式。它们可以由 Share 的 Contracts 或 Tool 的架构门禁作为规范来源；客户端是否直接依赖 Share 程序集，需以 Unity/AOT 兼容性和实际调用面验证后决定。
+
+**分开运行时宿主：** Share `ModuleHost` 负责服务图和异步启动关闭；Client `ModuleHost` 负责主线程帧阶段和 PlayerLoop。若未来确有同一客户端插件要在两种宿主运行，再增加独立 adapter，把 `IClientModule` 生命周期映射到 `IGameModule`；不要让 `IGameModule` 自身获得 Update/FixedUpdate/LateUpdate，也不要让客户端为无关服务器能力承担 VContainer 依赖。
+
+**把分发与执行分开：** NuGet/UPM 或源码包解决模块版本、来源和构建复现；`CompositionPlan` 解决一次 Host 实例装哪些服务；Runtime Content manifest 解决数据包版本；运行时模块合同解决谁拥有状态和生命周期。四种清单不能共用一个含混的“plugin manifest”。首版先采用编译期包引用和显式模块列表，不启用任意程序集热加载。
+
+#### 当前代码核对出的开放语义
+
+以下是 2026-10-03 对当前工作树的静态核对结论，不代表已通过新增行为测试：
+
+1. `ModuleDependency.Required` 已出现在共享合同中，但默认 `CompositionValidator` 对缺失依赖统一报错，没有按该标志区分必需与可选依赖。实现前需要选定语义：要么移除该字段并统一要求依赖存在，要么让可选依赖能被模块明确查询且不参与强制拓扑边。
+2. 可选模块 `StartAsync` 失败会进入 `Degraded` 并跳过其后续启动；当前 `DrainAsync` 和 `StopAsync` 遍历完整计划。需要决定未成功启动的模块是否收到 Drain/Stop，以及依赖它的下游模块是否应被跳过、拒绝启动或使用明确降级实现。
+3. `CreateScope` 当前只创建作用域服务容器；模块生命周期并未按 Session/World scope 再运行一次。后续若需要 scoped 模块，应新增明确的 `IModuleScopeHost` 生命周期，而不是把现有 DI Scope 误当作模块实例生命周期。
+4. `StateNamespace` 和 `Capabilities` 当前主要用于组合期冲突检查；没有 SimulationState 写入代理时，namespace 仍是声明性元数据，不能声称已经运行期隔离模块状态。
+5. `IModuleContext.Resolve/TryResolve` 和宿主公开 `Resolve` 提供服务定位入口。应把它们限定为模块生命周期与 composition root 的边界；服务本身仍使用构造函数注入，热路径缓存依赖，不能把 `IModuleContext` 当成全局容器传递。
+6. `ModuleComposer` 在 Apply 容器之前接收外部创建的模块实例；这些生命周期模块无法由物化后的容器构造注入依赖。推荐它们只负责声明贡献和宿主生命周期协调，业务服务由容器构造注入；若生命周期模块必须有复杂依赖，需设计容器创建的模块工厂作为单独能力。
+
+基于当前阶段，推荐保持“双宿主、共享规范、可选适配器”：先用 Share PluginHost 服务于 headless、server 和 tool 组合；Client 保持主线程帧泵模型；共享的只包括模块身份/版本和兼容策略，不在没有第二个真实使用场景前制造公共生命周期超接口。
+
 ### 4.1 核心对象
 
 通用内核只保留以下稳定对象：

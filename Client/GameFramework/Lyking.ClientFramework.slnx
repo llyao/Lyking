@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Core/Lyking.GameFramework.Client.Core.csproj" />
+  <Project Path="Services/Lyking.GameFramework.Client.Services.csproj" />
+  <Project Path="UI/Lyking.GameFramework.Client.UI.csproj" />
+  <Project Path="Demo/Lyking.GameFramework.Client.Demo.csproj" />
+  <Project Path="Tests/Lyking.GameFramework.Client.Tests.csproj" />
+</Solution>

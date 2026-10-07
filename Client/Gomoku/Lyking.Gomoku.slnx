@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.Gomoku.Core.csproj" />
+  <Project Path="Tests/Lyking.Gomoku.Core.Tests.csproj" />
+</Solution>

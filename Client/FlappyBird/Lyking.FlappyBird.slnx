@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.FlappyBird.Core.csproj" />
+  <Project Path="Tests/Lyking.FlappyBird.Core.Tests.csproj" />
+</Solution>

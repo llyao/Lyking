@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/MazeChaseDemo.unity
+    guid: a6c9645bd79d4ddb9b4d6f11701fdaa2
+    enabled: 1
+  m_configObjects: {}

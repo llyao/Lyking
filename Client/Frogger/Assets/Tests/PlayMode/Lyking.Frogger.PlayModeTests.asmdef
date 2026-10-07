@@ -1,0 +1,18 @@
+{
+  "name": "Lyking.Frogger.PlayModeTests",
+  "rootNamespace": "Lyking.Frogger.PlayModeTests",
+  "references": [
+    "Lyking.Frogger.Core",
+    "Lyking.Frogger.Unity",
+    "UnityEngine.TestRunner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

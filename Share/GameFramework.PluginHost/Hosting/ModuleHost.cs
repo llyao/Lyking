@@ -12,7 +12,8 @@ using Lyking.GameFramework.PluginHost.Composition;
 namespace Lyking.GameFramework.PluginHost.Hosting
 {
     /// <summary>
-    /// 模块宿主：应用已校验计划 → 依赖正序启动 → Ready → Drain → 逆序停止。
+    /// 模块宿主：Apply 已校验计划 → 依赖正序 Start → 宿主 Ready → Drain → 逆序 Stop。
+    /// Ready 是宿主状态，不是模块回调阶段；容器释放发生在停止或失败回滚之后。
     /// 本类型不保证线程安全；宿主生命周期调用应来自单一 owner（与运行内核一致）。
     /// 生命周期不依赖任何容器入口点，容器只负责物化对象图。
     /// </summary>
@@ -24,6 +25,7 @@ namespace Lyking.GameFramework.PluginHost.Hosting
         private readonly ModuleHealthRegistry _health = new ModuleHealthRegistry();
         private readonly CancellationTokenSource _hostCts = new CancellationTokenSource();
         private readonly Dictionary<string, IGameModule> _moduleById;
+        private readonly IReadOnlyList<ModuleHealthRegistry.PlannedModuleRef> _healthOrder;
 
         private IModuleContainer? _container;
         private HostState _state = HostState.Created;
@@ -42,22 +44,21 @@ namespace Lyking.GameFramework.PluginHost.Hosting
             {
                 _moduleById[plan.Modules[index].Descriptor.Id.Value] = modules[index];
             }
+
+            var order = new ModuleHealthRegistry.PlannedModuleRef[plan.Modules.Count];
+            for (var index = 0; index < plan.Modules.Count; index++)
+            {
+                order[index] = new ModuleHealthRegistry.PlannedModuleRef(plan.Modules[index].Descriptor.Id.Value);
+            }
+
+            _healthOrder = order;
         }
 
         public CompositionPlan Plan => _plan;
 
         public HostState State => _state;
 
-        public IReadOnlyList<ModuleHealthReport> Health
-        {
-            get
-            {
-                var order = _plan.Modules
-                    .Select(m => new ModuleHealthRegistry.PlannedModuleRef(m.Descriptor.Id.Value))
-                    .ToList();
-                return _health.Snapshot(order);
-            }
-        }
+        public IReadOnlyList<ModuleHealthReport> Health => _health.Snapshot(_healthOrder);
 
         /// <summary>组合 → 校验 → 物化。校验失败抛出 ModuleCompositionException，不创建容器。</summary>
         public static ModuleHost Build(

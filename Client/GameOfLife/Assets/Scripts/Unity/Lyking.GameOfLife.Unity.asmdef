@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.GameOfLife.Unity",
+  "rootNamespace": "Lyking.GameOfLife.Unity",
+  "references": [
+    "Lyking.GameOfLife.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

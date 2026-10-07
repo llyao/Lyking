@@ -1,0 +1,22 @@
+{
+  "name": "Lyking.Minesweeper.PlayModeTests",
+  "rootNamespace": "Lyking.Minesweeper.PlayModeTests",
+  "references": [
+    "Lyking.Minesweeper.Core",
+    "Lyking.Minesweeper.Unity",
+    "UnityEngine.TestRunner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

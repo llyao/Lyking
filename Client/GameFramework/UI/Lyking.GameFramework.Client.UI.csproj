@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- 界面层：依赖核心层；窗口栈、焦点、绑定与 Presenter 的纯逻辑可在此编译测试。 -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Lyking.GameFramework.Client.UI</RootNamespace>
+    <AssemblyName>Lyking.GameFramework.Client.UI</AssemblyName>
+    <Description>客户端界面层：窗口层级与栈管理、焦点、BindableProperty 绑定与 Presenter。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Lyking.GameFramework.Client.Core.csproj" />
+  </ItemGroup>
+
+</Project>

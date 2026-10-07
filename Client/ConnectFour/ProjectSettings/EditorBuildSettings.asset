@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/ConnectFourDemo.unity
+    guid: 1b2963c1586c4afca1ef9e0e560a0bd0
+    enabled: 1
+  m_configObjects: {}

@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - serializedVersion: 2
+    path: Assets/Scenes/EndlessRunnerDemo.unity
+    guid: a72d4769fec7420eb3fe17e4ecdd62a2
+    enabled: 1
+  m_configObjects: {}

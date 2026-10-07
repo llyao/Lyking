@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.Frogger.Unity",
+  "rootNamespace": "Lyking.Frogger.Unity",
+  "references": [
+    "Lyking.Frogger.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

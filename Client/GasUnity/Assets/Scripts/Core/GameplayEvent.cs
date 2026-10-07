@@ -1,3 +1,4 @@
+#nullable enable
 namespace Lyking.GameplayAbilities.Core
 {
     public enum GameplayEventType
@@ -8,6 +9,10 @@ namespace Lyking.GameplayAbilities.Core
         AttributeChanged,
         CooldownStarted,
         AbilityRejected,
+        ActiveEffectApplied,
+        ActiveEffectExpired,
+        ActiveEffectRemoved,
+        TagChanged,
     }
 
     public sealed class GameplayEvent
@@ -16,12 +21,18 @@ namespace Lyking.GameplayAbilities.Core
             GameplayEventType type,
             string abilityId,
             AbilityFailureReason reason = AbilityFailureReason.None,
-            string? attributeName = null)
+            string? attributeName = null,
+            int? effectHandleId = null,
+            double? timestamp = null,
+            string? tagName = null)
         {
             Type = type;
             AbilityId = abilityId;
             Reason = reason;
             AttributeName = attributeName;
+            EffectHandleId = effectHandleId;
+            Timestamp = timestamp;
+            TagName = tagName;
         }
 
         public GameplayEventType Type { get; }
@@ -31,5 +42,11 @@ namespace Lyking.GameplayAbilities.Core
         public AbilityFailureReason Reason { get; }
 
         public string? AttributeName { get; }
+
+        public int? EffectHandleId { get; }
+
+        public double? Timestamp { get; }
+
+        public string? TagName { get; }
     }
 }

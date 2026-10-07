@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.Wordle.Unity",
+  "rootNamespace": "Lyking.Wordle.Unity",
+  "references": [
+    "Lyking.Wordle.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

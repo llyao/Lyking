@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.WaterSort.Core.csproj" />
+  <Project Path="Tests/Lyking.WaterSort.Core.Tests.csproj" />
+</Solution>

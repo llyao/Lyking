@@ -1,21 +1,24 @@
+#nullable enable
 using System;
 
 namespace Lyking.GameplayAbilities.Core
 {
     public readonly struct GameplayTag : IEquatable<GameplayTag>
     {
+        private readonly string? _name;
+
         public GameplayTag(string name)
         {
-            Name = Normalize(name);
+            _name = Normalize(name);
         }
 
-        public string Name { get; }
+        public string Name => _name ?? string.Empty;
 
         public bool IsEmpty => string.IsNullOrEmpty(Name);
 
         public bool IsParentOf(GameplayTag child)
         {
-            return child.Name.Length > Name.Length
+            return !IsEmpty && !child.IsEmpty && child.Name.Length > Name.Length
                 && child.Name.StartsWith(Name + ".", StringComparison.Ordinal);
         }
 
@@ -23,7 +26,7 @@ namespace Lyking.GameplayAbilities.Core
 
         public override bool Equals(object? obj) => obj is GameplayTag other && Equals(other);
 
-        public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Name);
+        public override int GetHashCode() => IsEmpty ? 0 : StringComparer.Ordinal.GetHashCode(Name);
 
         public override string ToString() => Name;
 
@@ -36,7 +39,16 @@ namespace Lyking.GameplayAbilities.Core
                 throw new ArgumentException("GameplayTag 名称不能为空。", nameof(name));
             }
 
-            return name.Trim();
+            string normalized = name.Trim();
+            foreach (string segment in normalized.Split('.'))
+            {
+                if (string.IsNullOrWhiteSpace(segment))
+                {
+                    throw new ArgumentException("GameplayTag 层级段不能为空。", nameof(name));
+                }
+            }
+
+            return normalized;
         }
     }
 }

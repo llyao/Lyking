@@ -29,6 +29,10 @@ namespace Lyking.GameFramework.PluginHost.Composition
     /// </summary>
     public static class ModuleComposer
     {
+        /// <summary>
+        /// 组合并返回计划。注意：返回值不携带与模块实例的对齐关系；
+        /// 宿主构建与任何需要"计划项 ↔ 实例"对应关系的场景必须使用 <see cref="ComposeWithModules"/>。
+        /// </summary>
         public static CompositionPlan Compose(
             IEnumerable<IGameModule> modules,
             ICompositionValidator? validator = null)

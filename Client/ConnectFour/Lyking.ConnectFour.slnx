@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.ConnectFour.Core.csproj" />
+  <Project Path="Tests/Lyking.ConnectFour.Core.Tests.csproj" />
+</Solution>

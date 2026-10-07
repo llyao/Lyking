@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.SlidingPuzzle.Core.csproj" />
+  <Project Path="Tests/Lyking.SlidingPuzzle.Core.Tests.csproj" />
+</Solution>

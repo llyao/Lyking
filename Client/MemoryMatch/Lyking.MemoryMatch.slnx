@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.MemoryMatch.Core.csproj" />
+  <Project Path="Tests/Lyking.MemoryMatch.Core.Tests.csproj" />
+</Solution>

@@ -1,0 +1,14 @@
+{
+  "name": "Lyking.SlidingPuzzle.Core",
+  "rootNamespace": "Lyking.SlidingPuzzle.Core",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}

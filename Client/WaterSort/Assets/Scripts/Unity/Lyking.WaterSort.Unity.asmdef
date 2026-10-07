@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.WaterSort.Unity",
+  "rootNamespace": "Lyking.WaterSort.Unity",
+  "references": [
+    "Lyking.WaterSort.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

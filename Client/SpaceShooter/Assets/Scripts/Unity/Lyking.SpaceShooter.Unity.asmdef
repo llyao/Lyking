@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.SpaceShooter.Unity",
+  "rootNamespace": "Lyking.SpaceShooter.Unity",
+  "references": [
+    "Lyking.SpaceShooter.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

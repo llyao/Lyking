@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using Lyking.GameplayAbilities.Core;
 using Lyking.GameplayAbilities.Unity;
 using NUnit.Framework;
 using UnityEngine;
@@ -56,6 +58,37 @@ namespace Lyking.GameplayAbilities.PlayModeTests
             Object.Destroy(demo!.gameObject);
             yield return null;
             LogAssert.NoUnexpectedReceived();
+        }
+
+        [UnityTest]
+        public IEnumerator 训练假人的活动效果由自身时钟到期撤销()
+        {
+            AsyncOperation load = SceneManager.LoadSceneAsync("GasDemo");
+            yield return load;
+            yield return null;
+
+            var demo = Object.FindObjectOfType<GasDemoBootstrap>();
+            Assert.IsNotNull(demo);
+            var tags = new GameplayTagContainer();
+            tags.Add("State.Burning");
+            var result = demo!.TrainingDummyActor.AbilitySystem.TryApplyEffect(
+                new GameplayEffectSpec(
+                    new Dictionary<string, double> { ["Health"] = -10 },
+                    grantedTags: tags,
+                    durationSeconds: 1),
+                "PlayModeBurn");
+
+            Assert.IsTrue(result.Succeeded);
+            Assert.AreEqual(90, demo.TrainingDummyActor.Health);
+            Assert.IsTrue(demo.TrainingDummyActor.AbilitySystem.HasTag("State.Burning"));
+            Assert.AreEqual(1, demo.TrainingDummyActor.AbilitySystem.GetActiveEffects().Count);
+
+            demo.TrainingDummyActor.Tick(1);
+            yield return null;
+
+            Assert.AreEqual(100, demo.TrainingDummyActor.Health);
+            Assert.IsFalse(demo.TrainingDummyActor.AbilitySystem.HasTag("State.Burning"));
+            Assert.AreEqual(0, demo.TrainingDummyActor.AbilitySystem.GetActiveEffects().Count);
         }
     }
 }

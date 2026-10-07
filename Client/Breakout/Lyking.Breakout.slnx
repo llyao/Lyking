@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.Breakout.Core.csproj" />
+  <Project Path="Tests/Lyking.Breakout.Core.Tests.csproj" />
+</Solution>

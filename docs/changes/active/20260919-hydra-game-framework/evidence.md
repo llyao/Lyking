@@ -172,3 +172,11 @@ dotnet run --file scripts/ai/RouteHydraContext.cs -- --task "分析Hydra并在Ly
 - 未做：Unity 工程、文件 manifest 加载、热更边界、Simulation 内核（GameInstance/快照/回放）与 profile；这些属于 plan.md 后续任务，不因本轮证据声明完成。
 - NuGet 探测产生的临时工程位于系统临时目录，未进入仓库。
 
+## Lyking 当前模块系统补充核对
+
+- 日期：2026-10-03。
+- 路由：`dotnet run --project Tool/AiWorkflow/Lyking.AiWorkflow.csproj -- route --text "继续分析通用游戏框架模块管理方案，模块边界、依赖图、服务调用、Scope、资源租约与插件启停" --path Share --path Client --path Server --path Tool --path docs/changes/active/20260919-hydra-game-framework`。退出码 `0`；主领域 Share，关联 Client/Server/Tool，风险 `shared-contract`、`multi-area`，建议 `controlled`。
+- 静态阅读：`Share/GameFramework.PluginAbstractions/IGameModule.cs`、`Modules/*`、`Hosting/*`、`Share/GameFramework.PluginHost/Composition/*`、`Hosting/ModuleHost.cs` 与相关测试；`Client/GameFramework/Core/Modules/*`、`Core/ServiceLocation/*`、`GameClientBuilder.cs`、`docs/architecture.md`、`docs/module-guide.md`。
+- 事实：Share 宿主 Build 接收调用方创建的 `IGameModule` 列表，组合描述符并物化服务容器；没有文件 manifest 或动态程序集加载入口。命名 Scope 目前管理服务实例。Client Builder 可扫描带特性的程序集模块，客户端宿主另行驱动主线程帧阶段。
+- 静态观察：`ModuleDependency.Required` 在默认依赖校验中没有分支；可选模块 Start 失败后 Drain/Stop 遍历仍覆盖完整计划；`StateNamespace` 只在组合期检查冲突。以上需补充语义决定与行为测试，未在本轮修改代码或运行这些新增场景测试。
+- 结论：保留 Client 帧宿主与 Share 服务组合宿主；统一规范和兼容规则，不强行统一运行时基类。首版的“插件”指编译期组合扩展，不指任意 DLL 热加载/热卸载。

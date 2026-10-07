@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.Simon.Core.csproj" />
+  <Project Path="Tests/Lyking.Simon.Core.Tests.csproj" />
+</Solution>

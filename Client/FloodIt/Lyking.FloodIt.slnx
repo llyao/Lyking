@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.FloodIt.Core.csproj" />
+  <Project Path="Tests/Lyking.FloodIt.Core.Tests.csproj" />
+</Solution>

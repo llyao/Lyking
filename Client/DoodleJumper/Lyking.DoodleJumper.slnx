@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Core/Lyking.DoodleJumper.Core.csproj" />
+  <Project Path="Tests/Lyking.DoodleJumper.Core.Tests.csproj" />
+</Solution>

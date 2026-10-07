@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- 基础服务层：依赖核心层；抽象与模拟实现可测，真实平台实现由 Unity 适配层提供。 -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Lyking.GameFramework.Client.Services</RootNamespace>
+    <AssemblyName>Lyking.GameFramework.Client.Services</AssemblyName>
+    <Description>客户端基础服务层：资源、网络、配置、本地化、场景、音频与设置的抽象及可测模拟实现。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Lyking.GameFramework.Client.Core.csproj" />
+  </ItemGroup>
+
+</Project>

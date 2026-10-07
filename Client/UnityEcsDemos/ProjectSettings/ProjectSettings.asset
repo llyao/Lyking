@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!129 &1
+PlayerSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 26
+  productGUID: 00000000000000000000000000000001
+  AndroidProfiler: 0
+  defaultScreenOrientation: 4
+  targetDevice: 2
+  useOnDemandResources: 0
+  useOSAutorotation: 1
+  use32BitDisplayBuffer: 1
+  allowHDRDisplaySupport: 0
+  colorSpace: 0
+  activeColorSpace: 0
+  activeInputHandler: 0
+  applicationIdentifier:
+    Standalone: com.lyking.unityecsdemos
+  companyName: Lyking
+  productName: Lyking Unity ECS 对比 Demo
+  bundleVersion: 0.1.0
+  virtualRealitySupported: 0
+  insecureHttpOption: 0
+  scriptingBackend:
+    Standalone: 1
+  managedStrippingLevel:
+    EmbeddedLinux: 1
+    GameCoreScarlett: 1
+    GameCoreXboxOne: 1
+    Nintendo Switch: 1
+    PS4: 1
+    PS5: 1
+    QNX: 1
+    Stadia: 1
+    Standalone: 4
+    VisionOS: 1
+    WebGL: 1
+    Windows Store Apps: 1
+    XboxOne: 1
+  apiCompatibilityLevelPerPlatform: {}
+  scriptingDefineSymbols: {}
+  additionalCompilerArguments: {}
+  platformArchitecture: {}
+  metroPackageVersion: 1.0.0.0
+  metroPackageName: Lyking Unity ECS 对比 Demo
+  metroPackageDisplayName: Lyking Unity ECS 对比 Demo
+  metroPackageDescription: Unity ECS 性能和架构对比演示
+  metroPackageLogo: {fileID: 0}
+  xboxOneDescription: Lyking Unity ECS 对比 Demo
+  xboxOneGameConfig: {fileID: 0}
+  xboxOneTitleId: 0
+  xboxOneSCId: 0
+  xboxOneLaunchImage: {fileID: 0}
+  xboxOneSplashScreen: {fileID: 0}
+  xboxOneSplashScreenBackground: {r: 0, g: 0, b: 0, a: 1}
+  xboxOneSplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}

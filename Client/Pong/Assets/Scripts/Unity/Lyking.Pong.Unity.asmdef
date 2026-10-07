@@ -1,0 +1,16 @@
+{
+  "name": "Lyking.Pong.Unity",
+  "rootNamespace": "Lyking.Pong.Unity",
+  "references": [
+    "Lyking.Pong.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -14,26 +14,37 @@
 | 伤害来源 | 已修复 | 火球优先使用施法者 `AttackPower`，未配置时回退到能力定义伤害；演示消息使用实际生命差值。 |
 | Unity 资产与引用 | 已修复 | `FireballAbility.asset` 已创建并由 `GasDemo.unity` 引用；脚本、程序集、场景、资产和目录 `.meta` 均存在。 |
 | 输入测试入口 | 已修复 | `GasDemoBootstrap.ProcessInput(KeyCode)` 与 `Update` 使用同一分发路径，PlayMode 测试覆盖 `Space`、冷却和非施法键。 |
-| Unity 适配冷却查询 | 已修复 | 独立审查发现 `GasActor`/`GasDemoPanel` 使用的 `GetCooldownRemaining` 缺失；已补充核心只读 API 和 15 项核心测试覆盖。 |
+| Unity 适配冷却查询 | 已修复 | 独立审查发现 `GasActor`/`GasDemoPanel` 使用的 `GetCooldownRemaining` 缺失；已补充核心只读 API 和冷却剩余时间测试。 |
 | 效果定义数据流 | 已修复 | `GameplayAbilityDefinition` 支持嵌套 `GameplayEffectDefinition`，`FireballAbility.asset` 引用 `FireballDamageEffect.asset`，运行时能力携带效果规格并由 ASC 应用默认增量；`AttackPower` 仍可覆盖默认伤害。 |
 | 逻辑时钟边界 | 已修复 | `ManualGameplayClock.Schedule/Advance` 拒绝负数、`NaN`、正负无穷及加法溢出，并由参数化和边界测试覆盖。 |
+| 属性变更通知 | 已修复 | 成功激活通过来源 `AttributeSet` 通知成本变化，目标 ASC 对目标属性只发布一次；所有由能力提交导致的属性变化保留来源 `AbilityId`，直接属性写入使用空来源。 |
+| 零伤害效果配置 | 已修复 | 能力定义转换和 ASC 激活均拒绝非负伤害修饰器，避免零增量被 `AttackPower` 静默改成真实伤害。 |
+| 默认 GameplayTag | 已修复 | 默认值公开为空标签且哈希/层级查询安全；容器拒绝空标签，点分名称拒绝空层级段。 |
+| 零冷却事件重入 | 已修复 | 激活与同步事件发布期间禁止 ASC 递归激活，嵌套调用返回 `ActivationInProgress`，不产生递归事件。 |
+| 未支持效果元数据 | 已修复 | v1 激活拒绝带持续时间、授予标签、多个修饰器或非负修饰器的伤害效果，失败原因是 `InvalidEffect` 且不提交资源或冷却。 |
+
+早期静态审查记录：Unity 适配脚本未发现明确 C# 编译错误，资产 GUID 和场景引用静态一致；当时尚未成功运行 Unity 导入或程序集编译，因此不把该静态检查视为 Unity 编译证据。后续已在 2022.3.59f1 临时副本完成导入和 EditMode/PlayMode 测试，结果见验证证据。新增的跨 ASC 事件测试覆盖 Mana 通知、Health 唯一发布和全局事件顺序；零增量测试覆盖 `AttackPower` 同时存在时的拒绝与状态不变。
+
+后续只读复审发现能力激活所引起的 `AttributeChanged` 事件缺少来源 `AbilityId`，且无效效果拒绝与递归激活测试没有锁定事件数量。实现已补充带来源 ID 的内部属性通知；测试确认 Mana 和目标 Health 事件均关联 `Fireball`，无效效果只发布一次 `AbilityRejected`，重入请求不产生拒绝事件。修复后独立复审未发现可复现问题。
 
 ## 当前发现与残余风险
 
 | 严重度 | 位置 | 发现 | 影响 |
 |---|---|---|---|
-| 中 | Unity 2022.3 运行环境 | 当前主机只有 Unity 6.0.4f1，没有目标 Unity 2022.3 编辑器和可用批处理验证证据。 | 不能确认目标版本的导入、序列化、EditMode、PlayMode、生命周期和真实键盘输入行为。 |
+| 中 | Unity 补丁版本与运行验收 | 工程固定在 2022.3.40f1；当前可用 2022.3.59f1，临时副本 EditMode/PlayMode 各 3/3 通过，但尚未在固定补丁版本打开原工程。 | 同一 LTS 系列烟测提高了兼容性信心，但不能证明 .40f1 的精确导入行为。 |
 | 中 | `GasDemo.unity` 运行验收 | 尚未在目标编辑器运行场景并保存玩家 Mana、训练假人 Health、冷却拒绝和事件日志截图。 | 交互与界面验收仍缺少人工可见证据。 |
-| 中 | `GameplayEffectSpec` 的演示适配范围 | 首版火球只接受单一负修饰器，并将其转换为目标属性伤害；持续时间、授予标签和多修饰器尚未接入 ASC 的火球路径。设计已明确将通用效果生命周期列为后续范围。 | 当前示例满足瞬时伤害演示，但不能把该适配宣称为完整的通用 GameplayEffect 应用层；通用效果生命周期留待后续独立受控变更。 |
+| 中 | `GameplayEffectSpec` 的通用生命周期 | v1 仅处理一个瞬时负修饰器；带持续时间、授予标签和多修饰器的规格现在会明确拒绝，未实现活动效果句柄、过期或撤销。 | 不影响火球验收；不能把当前能力路径宣称为完整的通用 GameplayEffect 应用层。 |
+| 中 | 实际键盘输入 | PlayMode 测试调用 `ProcessInput`，不驱动 `Update` 内的 `Input.GetKeyDown`。 | 测试通过不能证明 Game 视图焦点、旧输入管理器配置和真实 `Space` 按键链路正常。 |
 | 低 | 运行时错误展示 | 面板直接显示 `AbilityFailureReason` 枚举名，未提供面向玩家的本地化文案映射。 | 不影响核心规则，但演示可读性和产品化程度有限。 |
 | 低 | Unity 资产异常配置 | 当前仅有正常火球资产的 EditMode 转换断言，未在 Unity 编辑器中验证正增量、多修饰器或缺失引用资产的错误提示。 | 错误内容最终仍需目标 Unity 编辑器导入和运行验证。 |
+| 低 | 手动时钟的周期回调 | 推进时间时先将 `Now` 更新到步进终点，再运行到期回调；回调内重排周期计时器时，大步与多次小步可能触发不同次数。 | ASC 当前冷却按截止时间查询且不依赖定时器回调；需在引入周期效果前定义追赶语义。 |
 
 ## 验证边界
 
-- 本轮已执行：核心 Release 构建、核心 .NET 测试（25/25）、变更 `validate` 和 `git diff --check`。
+- 本轮已执行：核心 Release 构建、核心 .NET 测试（35/35）、Unity 2022.3.59f1 临时副本 EditMode/PlayMode（各 3/3）、变更 `validate` 和 `git diff --check`。
 - 已有静态证据：核心程序集不引用 `UnityEngine`/`UnityEditor`；Unity 资产与 `.meta` 完整；`FireballAbility.asset` 被场景引用。
-- 尚未执行：Unity 2022.3 EditMode、PlayMode、真实 `Space` 键盘输入和运行截图。Unity 6 的结果不能替代目标版本证据。
+- 尚未执行：工程固定版本 Unity 2022.3.40f1 的导入与测试、真实 `Space` 键盘输入和运行截图。2022.3.59f1 的临时副本结果不能证明精确补丁版本及真实交互。
 
 ## 结论
 
-首轮发现的原子提交、数值溢出、标签可变性、空能力 ID、资产引用、输入入口、冷却查询、效果定义数据流、时钟边界和测试覆盖问题均已修复，未发现新的阻塞性核心逻辑问题。由于缺少 Unity 2022.3 编辑器运行与真实截图，本变更必须保持 `active`，不能转换为 `verified`。
+首轮和本轮确认的原子提交、数值溢出、标签默认态、空能力 ID、零冷却重入、效果范围拒绝、属性事件来源、资产引用、冷却查询和事件顺序问题均有修复及核心测试；Unity 2022.3.59f1 临时副本的 EditMode/PlayMode 也通过。固定补丁版本、真实键盘输入和运行截图仍未验证，本变更必须保持 `active`，不能转换为 `verified`。

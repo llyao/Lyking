@@ -1,0 +1,19 @@
+{
+  "name": "Lyking.LightsOut.EditModeTests",
+  "rootNamespace": "Lyking.LightsOut.EditModeTests",
+  "references": [
+    "Lyking.LightsOut.Core",
+    "Lyking.LightsOut.Unity",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

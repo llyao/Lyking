@@ -1,0 +1,19 @@
+{
+  "name": "Lyking.Bomberman.EditModeTests",
+  "rootNamespace": "Lyking.Bomberman.EditModeTests",
+  "references": [
+    "Lyking.Bomberman.Core",
+    "Lyking.Bomberman.Unity",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Lyking.Sudoku.Core",
+  "rootNamespace": "Lyking.Sudoku.Core",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}

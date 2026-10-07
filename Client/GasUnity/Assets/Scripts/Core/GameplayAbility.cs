@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 
 namespace Lyking.GameplayAbilities.Core
@@ -12,6 +13,8 @@ namespace Lyking.GameplayAbilities.Core
         Cooldown,
         InsufficientResource,
         InvalidTarget,
+        ActivationInProgress,
+        InvalidEffect,
     }
 
     public readonly struct AbilityActivationResult
